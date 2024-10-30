@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/27 16:40:39 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:20:54 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ static void	get_ray_orientation(t_ray *ray, float ray_angle)
 	ray->rayfacingup = (ray->angle >= PI && ray->angle <= 2 * PI);
 	ray->rayfacingleft = (ray->angle >= PI / 2 && ray->angle <= 1.5 * PI);
 	ray->distance = INT_MAX;
+	ray->hit.x = 0;
+	ray->hit.y = 0;
+	ray->hitvertical = false;
 }
 
 static void	find_horizontal_intersection(t_data *data, t_ray *ray)
@@ -38,7 +41,7 @@ static void	find_horizontal_intersection(t_data *data, t_ray *ray)
 	while (curr.x >= 0 && curr.x <= W_WIDTH
 		&& curr.y >= 0 && curr.y <= W_HEIGHT)
 	{
-		if (is_wall_at(curr.x, curr.y - ray->rayfacingup))
+		if (is_wall_at(data, curr.x, curr.y - ray->rayfacingup))
 		{
 			ray->hit = curr;
 			ray->distance = distance(data->player.pos, curr);
@@ -67,7 +70,7 @@ static void	find_vertical_intersection(t_data *data, t_ray *ray)
 	while (curr.x >= 0 && curr.x <= W_WIDTH
 		&& curr.y >= 0 && curr.y <= W_HEIGHT)
 	{
-		if (is_wall_at(curr.x - ray->rayfacingleft, curr.y))
+		if (is_wall_at(data, curr.x - ray->rayfacingleft, curr.y))
 		{
 			ray->hit = curr;
 			ray->distance = distance(data->player.pos, curr);

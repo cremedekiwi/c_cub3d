@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/28 12:50:27 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 00:16:49 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,15 @@
 # include <stdint.h>
 # include <limits.h>
 
-# define MAP_ROWS 13
-# define MAP_COLS 20
-# define CUBE_SIZE 64
-# define W_WIDTH (MAP_COLS * CUBE_SIZE)
-# define W_HEIGHT (MAP_ROWS * CUBE_SIZE)
+# define W_WIDTH 1200
+# define W_HEIGHT 800
+# define CUBE_SIZE 32
 # define FOV (60 * (PI / 180))
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
-# define SCALE_MAP 0.2
-# define VELOCITY 3
-# define ANGULAR_VELOCITY (PI / 180)
-
-extern int  map[MAP_ROWS][MAP_COLS];
+# define SCALE_MAP 0.3
+# define VELOCITY 1
+# define ANGULAR_VELOCITY (PI / 200)
 
 typedef struct s_vec2
 {
@@ -56,17 +52,16 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		height;
+	int		width;
+	char	*path;
 }	t_img;
 
 typedef struct s_map
 {
-	int		**m;
-	void	*text_north;
-	void	*text_south;
-	void	*text_est;
-	void	*text_west;
-	// color ceiling;
-	// color floor;
+	char	**m;
+	int		rows;
+	int		cols;
 }	t_map;
 
 typedef struct s_player
@@ -103,9 +98,15 @@ typedef struct	s_data
 	void		*mlx_ptr;
 	void		*mlx_win;
 	t_img		img;
+	t_img		*text_no;
+	t_img		*text_so;
+	t_img		*text_we;
+	t_img		*text_ea;
 	t_map		map;
 	t_player	player;
 	t_ray		rays[W_WIDTH];
+	int			color_ceiling;
+	int			color_floor;
 }	t_data;
 
 typedef struct s_rect
@@ -120,12 +121,12 @@ typedef struct s_rect
 int		handle_keyrelease(int keysym, t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 int		render(t_data *data);
-void	move_player(t_player *player);
+void	move_player(t_data *data, t_player *player);
 int		ft_abs(int x);
 float	angle_normalize(float angle);
 float	distance(t_vec2 v1, t_vec2 v2);
 void	exit_game(t_data *data);
-int		is_wall_at(float x, float y);
+int		is_wall_at(t_data *data,float x, float y);
 void	init_rays(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 //void	draw_line(t_data *data, t_vec2 v1, t_vec2 v2);

@@ -6,13 +6,13 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/28 12:56:12 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:20:24 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	move_player(t_player *player)
+void	move_player(t_data *data, t_player *player)
 {
 	t_vec2	newpos;
 
@@ -29,6 +29,6 @@ void	move_player(t_player *player)
 		newpos.x += cos(player->angle + player->sideway * PI / 2) * VELOCITY;
 		newpos.y += sin(player->angle + player->sideway * PI / 2) * VELOCITY;
 	}
-	if (!is_wall_at(newpos.x, newpos.y))
+	if (!is_wall_at(data, newpos.x, newpos.y))
 		player->pos = newpos;
 }

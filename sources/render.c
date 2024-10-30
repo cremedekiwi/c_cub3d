@@ -6,19 +6,19 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/28 13:01:48 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 00:22:06 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-
-static void render_background(t_img *img, int color)
+static void	render_background(t_img *img, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
+	(void)color;
 	while (i < W_HEIGHT)
 	{
 		j = 0;
@@ -28,29 +28,23 @@ static void render_background(t_img *img, int color)
 	}
 }
 
-
-static void render_map(t_data *data)
+static void	render_map(t_data *data)
 {
 	int i;
 	int j;
 
+	draw_rect(&data->img, (t_rect){0, 0,
+		data->map.rows * CUBE_SIZE * SCALE_MAP,
+		data->map.cols * CUBE_SIZE * SCALE_MAP,
+		0x000000});
 	i = 0;
-	while (i < W_HEIGHT * SCALE_MAP)
+	while (i < data->map.rows)
 	{
 		j = 0;
-		while (j < W_WIDTH * SCALE_MAP)
-			img_pix_put(&data->img, j++, i , 0x000000);
-		i++;
-	}
-	i = 0;
-	while (i < MAP_ROWS)
-	{
-		j = 0;
-		while (j < MAP_COLS)
+		while (j < data->map.cols)
 		{
-			if (map[i][j] == 1)
-				draw_rect(&data->img,
-					(t_rect){
+			if (data->map.m[i][j] == '1' || data->map.m[i][j] == ' ')
+				draw_rect(&data->img, (t_rect){
 					j * CUBE_SIZE * SCALE_MAP,
 					i * CUBE_SIZE * SCALE_MAP,
 					CUBE_SIZE * SCALE_MAP,
@@ -61,7 +55,6 @@ static void render_map(t_data *data)
 		i++;
 	}
 }
-
 
 static void	render_rays(t_data *data)
 {
@@ -75,7 +68,7 @@ static void	render_rays(t_data *data)
 		draw_line(data,scale1.x, scale1.y, scale2.x, scale2.y);
 		i++;
 	}
-};
+}
 
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
 {
@@ -121,7 +114,7 @@ int	render(t_data *data)
 	if (!data->mlx_win)
 		return (1);
 	init_rays(data);
-	move_player(&data->player);
+	move_player(data, &data->player);
 	render_background(&data->img, 0x000000);
 	render_walls(data);
 	render_map(data);
