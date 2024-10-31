@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -w
 LINK = -lm -lX11 -lXext
 LIBFT_PATH = libft/
 LIBFT = $(LIBFT_PATH)libft.a
@@ -16,7 +16,7 @@ SRC_FILES = main.c \
 			movement.c \
 			maths_utils.c \
 			draw.c \
-			raycasting.c 
+			raycasting.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
 
 OBJ_PATH = obj/
@@ -26,30 +26,36 @@ OBJECTS = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 all : $(NAME)
 
 $(NAME) : $(MLX) $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJECTS) $(MLX) $(LIBFT) $(LINK) -o $@
+	@echo "${NAME}"
+	@$(CC) $(CFLAGS) $(OBJECTS) $(MLX) $(LIBFT) $(LINK) -o $@
 
 $(MLX) :
-	make -C $(MLX_PATH)
+	@echo "mlx"
+	@make -C $(MLX_PATH) >/dev/null 2>&1 --no-print-directory
 
 $(LIBFT) :
-	make -C $(LIBFT_PATH)
+	@echo "libft"
+	@make -C $(LIBFT_PATH) --no-print-directory
 
 $(OBJ_PATH)%.o : $(SRC_PATH)%.c | $(OBJ_PATH)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ 
+	@echo "compiling $<"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_PATH) :
-	mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)
 
 bonus : all
 
 clean :
-	rm -rf $(OBJ_PATH)
-	make clean -C $(LIBFT_PATH)
-	make clean -C $(MLX_PATH)
+	@echo "clean"
+	@rm -rf $(OBJ_PATH)
+	@make clean -C $(LIBFT_PATH) --no-print-directory
+	@make clean -C $(MLX_PATH) >/dev/null 2>&1 --no-print-directory
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C $(LIBFT_PATH)
+	@echo "fclean"
+	@rm -rf $(NAME)
+	@make fclean -C $(LIBFT_PATH) --no-print-directory
 
 re : fclean all
 
