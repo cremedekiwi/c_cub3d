@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 00:16:49 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:52:02 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
 # define SCALE_MAP 0.3
-# define VELOCITY 1
+# define VELOCITY 2
 # define ANGULAR_VELOCITY (PI / 200)
 
 typedef struct s_vec2
@@ -134,4 +134,4 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
 
-#endif 
+#endif

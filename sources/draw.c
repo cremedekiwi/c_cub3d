@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:08:55 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/28 12:58:42 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:18:10 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1)
 
 	while (1)
 	{
-		img_pix_put(&data->img, x0,y0, 0xFFFF00);
+		img_pix_put(&data->img, x0,y0, 0xFFFFFF);
 		if (x0 == x1 && y0 == y1) break;
         e2 = 2 * err;
 		if (e2 >= dy)
