@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 18:09:37 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/10/31 23:35:07 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	render_map(t_data *data)
 					i * CUBE_SIZE * SCALE_MAP,
 					CUBE_SIZE * SCALE_MAP,
 					CUBE_SIZE * SCALE_MAP,
-					0x1d4e56});
+					0xFFFFFF});
 			j++;
 		}
 		i++;

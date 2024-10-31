@@ -1,10 +1,10 @@
-NO ./textures/wall.xpm
-SO ./textures/wall.xpm
-WE ./textures/wall.xpm
-EA ./textures/wall.xpm
+NO ./textures/red.xpm
+SO ./textures/red.xpm
+WE ./textures/red.xpm
+EA ./textures/red.xpm
 
-F 11,21,32
-C 135,206,235
+F 120,0,0
+C 193,18,31
 
          111111111111
        1110000D00000111
@@ -14,7 +14,7 @@ C 135,206,235
   11000011          11000011
   1000011            1100001
   100001              100001
-  10W001              100001
+  10N001              100001
   1000011            1100001
   11000011          11000011
    110000111      111000011
