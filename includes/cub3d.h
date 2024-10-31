@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 00:16:49 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:46:05 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@
 # define SCALE_MAP 0.3
 # define VELOCITY 1
 # define ANGULAR_VELOCITY (PI / 200)
+# define MLX_PTR "Error: mlx_init failed\n"
+# define MLX_WIN "Error: mlx_new_window() failed\n"
+# define MLX_IMG "Error: mlx_new_image() failed\n"
+# define MLX_TEXT "Error: mlx_xpm_to_image() failed\n"
+# define MALLOC "Error: malloc() failed\n"
+# define ARGS "Error: you must provide one argument\n"
+# define FD "Error: you could not open file\n"
+# define MAP_NOT_LAST "Error: .cub invalid map should be last\n"
+# define COLOR "Error, color values out of range [0, 255]\n"
 
 typedef struct s_vec2
 {
@@ -133,5 +142,25 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 void	draw_line(t_data *data, int x0, int y0, int x1, int y1);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
+
+/* map */
+int		is_map(char *str);
+void	get_map_dimension(t_data *data, char **tab);
+void	get_player_position(t_data *data);
+void	get_map(t_data *data, char *str, int fd);
+/* tab */
+void	free_tab(char **tab);
+char	**tab_append(char **tab, char *str);
+void	copy_tab(t_data *data, char **tab);
+/* texture */
+int		is_texture(char *str);
+void	create_texture(t_data *data, char *str, int fd, t_img *img);
+void	get_texture(t_data *data, char *str, int fd);
+/* exit */
+void	exit_error(t_data *data, char *msg);
+void	exit_game(t_data *data);
+
+/* parse */
+void	parse_map(t_data *data, char *str);
 
 #endif 

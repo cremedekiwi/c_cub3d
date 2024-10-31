@@ -16,6 +16,12 @@ SRC_FILES = main.c \
 			movement.c \
 			maths_utils.c \
 			draw.c \
+			texture.c \
+			wall.c \
+			tab.c \
+			exit.c \
+			parse.c \
+			map.c \
 			raycasting.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
 
@@ -62,4 +68,4 @@ re : fclean all
 .PHONY : all re clean fclean
 
 debug :
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --leak-resolution=high ./${NAME}
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --leak-resolution=high ./${NAME} map.cub

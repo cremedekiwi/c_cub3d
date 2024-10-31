@@ -3,8 +3,8 @@ SO ./textures/wood_vertical.xpm
 WE ./textures/grass.xpm
 EA ./textures/dirt.xpm
 
-F 220,100,0
-C 225,30,0
+F	-20,100,80
+C 25,30,12
 
         1111111111111111111111111
         1000000000110000000000001
