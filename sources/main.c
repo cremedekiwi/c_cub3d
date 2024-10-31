@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 00:22:38 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:34:39 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,25 @@ void	exit_game(t_data *data)
 		if (data->text_no && data->text_no->mlx_img)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->text_no->mlx_img);
+			free(data->text_no->path);
 			free(data->text_no);
 		}
 		if (data->text_so && data->text_so->mlx_img)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->text_so->mlx_img);
+			free(data->text_so->path);
 			free(data->text_so);
 		}
 		if (data->text_we && data->text_we->mlx_img)
 		{
 			mlx_destroy_image(data->mlx_ptr, data->text_we->mlx_img);
+			free(data->text_we->path);
 			free(data->text_we);
 		}
 		if (data->text_ea && data->text_ea->mlx_img)
 		{
-			mlx_destroy_image(data->mlx_ptr, data->text_we->mlx_img);
+			mlx_destroy_image(data->mlx_ptr, data->text_ea->mlx_img);
+			free(data->text_ea->path);
 			free(data->text_ea);
 		}
 		if (data->mlx_win)
@@ -117,17 +121,20 @@ int is_texture(char *str)
 
 void create_texture(t_data *data, char *str, int fd)
 {
-    t_img   *img;
-    
-    img = (t_img *)malloc(sizeof(t_img));
+	t_img	*img;
+	size_t	len;
+
+	img = (t_img *)malloc(sizeof(t_img));
 	if (!img)
 		return (free(str), close(fd), exit_game(data));
 	img->path = ft_strdup(ft_strchr(str, '.'));
-	printf("%s", img->path);
-    img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, img->path, &img->width, &img->height);
-    if (!img->mlx_img)
+	len = ft_strlen(img->path);
+	if (len > 0 && img->path[len - 1] == '\n')
+		img->path[len - 1] = '\0';
+	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, img->path, &img->width, &img->height);
+	if (!img->mlx_img)
 		return (printf("error xpm image\n"),free(str), close(fd), exit_game(data));
-    img->addr = mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
+	img->addr = mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
 	if (!ft_strncmp(str, "NO", 2))
 		data->text_no = img;
 	if (!ft_strncmp(str, "SO", 2))
@@ -136,12 +143,11 @@ void create_texture(t_data *data, char *str, int fd)
 		data->text_we = img;
 	if (!ft_strncmp(str, "EA", 2))
 		data->text_ea = img;
-	printf("%s", img->path);
 }
 
 void	get_texture(t_data *data, char *str, int fd)
 {
-	//char	*tmp;
+	char	*tmp;
 
 	create_texture(data, str, fd);
 	/*
@@ -296,7 +302,7 @@ void copy_tab(t_data *data, char **tab)
 	int j;
 	int i;
 	char **new_tab;
-	
+
 	new_tab = (char **)malloc(sizeof(char *) * (data->map.rows + 1));
 	if (!new_tab)
 		return (free_tab(tab), exit_game(data));
@@ -332,7 +338,7 @@ void get_map(t_data *data, char *str, int fd)
 		tab = tab_append(tab, str);
 		if (!tab)
 			return (free(str), close(fd), exit_game(data));
-		free(str);	
+		free(str);
 		str = get_next_line(fd);
 	}
 	get_map_dimension(data, tab);
@@ -342,7 +348,7 @@ void get_map(t_data *data, char *str, int fd)
 
 void	parse_map(t_data *data, char *str)
 {
-	int		fd;	
+	int		fd;
 	char	*line;
 
 	fd = open(str, O_RDONLY);
@@ -354,11 +360,11 @@ void	parse_map(t_data *data, char *str)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
-			get_color(data, line, line[0], fd);
-		/*
 		if (is_texture(line))
 			get_texture(data, line, fd);
+		else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
+			get_color(data, line, line[0], fd);
+		/*
 		if (is_last_argument(data) && is_map(line))
 		*/
 		else if (is_map(line))

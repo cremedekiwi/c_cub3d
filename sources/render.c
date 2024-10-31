@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 00:22:06 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:13:16 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,43 @@ void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
 		wall->end = W_HEIGHT;
 }
 
+// void render_walls(t_data *data)
+// {
+// 	int		i;
+// 	int		j;
+// 	t_wall	wall;
+// 	float	proj_dist;
+
+// 	proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
+// 	i = 0;
+// 	while (i < NUM_RAYS)
+// 	{
+// 		get_wall_parameters(&wall, &data->rays[i], proj_dist);
+// 		j = 0;
+// 		while (j < wall.start)
+// 			img_pix_put(&data->img, i, j++, 0x87CEEB);
+// 		while (j < wall.end)
+// 		{
+// 			if (data->rays[i].hitvertical)
+// 				img_pix_put(&data->img, i, j++, 0xFFFFAa);
+// 			else
+// 			img_pix_put(&data->img, i, j++, 0xFFFFe0);
+// 		}
+// 		while (j < W_HEIGHT)
+// 			img_pix_put(&data->img, i, j++, 0x808080);
+// 		i++;
+// 	}
+// }
+
 void render_walls(t_data *data)
 {
 	int		i;
 	int		j;
 	t_wall	wall;
 	float	proj_dist;
+	int		tex_x, tex_y;
+	char	*pixel;
+	t_img	*texture;
 
 	proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
 	i = 0;
@@ -96,12 +127,16 @@ void render_walls(t_data *data)
 		j = 0;
 		while (j < wall.start)
 			img_pix_put(&data->img, i, j++, 0x87CEEB);
+		if (data->rays[i].hitvertical)
+			texture = data->rays[i].rayfacingleft ? data->text_we : data->text_ea;
+		else
+			texture = data->rays[i].rayfacingup ? data->text_no : data->text_so;
 		while (j < wall.end)
 		{
-			if (data->rays[i].hitvertical)
-				img_pix_put(&data->img, i, j++, 0xFFFFAa);
-			else
-			img_pix_put(&data->img, i, j++, 0xFFFFe0);
+			tex_x = (int)((i % texture->width) * texture->width / W_WIDTH);
+			tex_y = (int)(((j - wall.start) * texture->height) / (wall.end - wall.start));
+			pixel = texture->addr + (tex_y * texture->line_len + tex_x * (texture->bpp / 8));
+			img_pix_put(&data->img, i, j++, *(unsigned int *)pixel);
 		}
 		while (j < W_HEIGHT)
 			img_pix_put(&data->img, i, j++, 0x808080);
