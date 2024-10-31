@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 16:46:05 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:59:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 # define FD "Error: you could not open file\n"
 # define MAP_NOT_LAST "Error: .cub invalid map should be last\n"
 # define COLOR "Error, color values out of range [0, 255]\n"
+# define FILEFORMAT "Error, file must be .cub\n"
+# define CARDINAL "Error, must be one cardinal point\n"
+# define EMPTY_LINE "Error, empty line in map\n"
 
 typedef struct s_vec2
 {
@@ -90,6 +93,13 @@ typedef struct s_wall
 	float	proj_dist;
 	float	height;
 }	t_wall;
+
+typedef struct s_render
+{
+    t_wall    wall;
+    t_img    *texture;
+    int        tex_x;
+}    t_render;
 
 typedef struct s_ray
 {
@@ -151,7 +161,7 @@ void	get_map(t_data *data, char *str, int fd);
 /* tab */
 void	free_tab(char **tab);
 char	**tab_append(char **tab, char *str);
-void	copy_tab(t_data *data, char **tab);
+void	copy_tab(t_data *data, char **tab, int fd);
 /* texture */
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);
@@ -162,5 +172,10 @@ void	exit_game(t_data *data);
 
 /* parse */
 void	parse_map(t_data *data, char *str);
+/* wall */
+void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist);
+void	calculate_wall_height(t_wall *wall, float corrected_distance);
+void	determine_texture(t_data *data, int ray_index, t_render *render_info);
+void	render_wall(t_data *data, int ray_index, t_render render_info);
 
 #endif 

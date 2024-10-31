@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 15:27:18 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 20:53:39 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,78 @@ void	get_player_position(t_data *data)
 	}
 }
 
+void remove_cardinal(t_data *data)
+{
+	int	i;
+	int	j;
+	int c;
+
+	i = -1;
+	c = 0;
+	while (data->map.m[++i])
+	{
+		j = -1;
+		while (data->map.m[i][++j])
+		{
+			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
+				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
+			{
+				data->map.m[i][j] = '0';
+				c++;
+			}
+			else if (data->map.m[i][j] == ' ')
+				data->map.m[i][j] = '1';
+		}
+	}
+	if (c != 1)
+		exit_error(data, CARDINAL);
+}
+
+void	is_map_open(t_data *data)
+{
+
+}
+
+void	verify_arguments(t_data *data)
+{
+	int i;
+	int j;
+	bool	whitespace;
+
+	i = 0;
+	is_map_open(data);
+	whitespace = 1;
+	while (data->map.m && data->map.m[i])
+	{
+		j = 0;
+		while (data->map.m[i][j])
+		{
+			if (data->map.m[i][j] != ' ')
+				whitespace = 0;
+			j++;
+		}
+		if (whitespace == 1)
+			exit_error(data, EMPTY_LINE);
+		whitespace = 1;
+		i++;
+	}
+	remove_cardinal(data);
+	i = 0;
+	while (data->map.m && data->map.m[i])
+	{
+		printf("%s\n", data->map.m[i]);
+		/*
+		j = 0;
+		while (data->map.m[i][j])
+		{
+			j++;
+		}
+		*/
+		i++;
+	}
+		
+}
+
 void	get_map(t_data *data, char *str, int fd)
 {
 	char	**tab;
@@ -94,7 +166,7 @@ void	get_map(t_data *data, char *str, int fd)
 		str = get_next_line(fd);
 	}
 	get_map_dimension(data, tab);
-	copy_tab(data, tab);
+	copy_tab(data, tab, fd);
 	get_player_position(data);
-	//verify_arguments(data);
+	verify_arguments(data);
 }

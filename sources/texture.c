@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 16:28:01 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:13:02 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,53 @@
 
 int	is_texture(char *str)
 {
-	if (!ft_strncmp(str, "NO ", 3)
-		|| !ft_strncmp(str, "SO ", 3)
-		|| !ft_strncmp(str, "WE ", 3)
-		|| !ft_strncmp(str, "EA ", 3))
-		return (1);
+	static const char *tok[] = {
+		"NO", "N", "SO", "S", "WE", "W",
+		"EA", "E", 0
+	};
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (ft_strlen(str) > ft_strlen(tok[i])
+			&& !ft_strncmp(tok[i], str, ft_strlen(tok[i])))
+		{
+			if (ft_strchr(str, '.'))
+				return (1);
+			return (0);
+		}
+		i++;
+	}
 	return (0);
+}
+
+void	assign_texture(t_data *data, char *str, t_img *img)
+{
+
+	static const char *tok[] = {
+		"NO", "N", "SO", "S", "WE", "W",
+		"EA", "E", 0
+	};
+	int	i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (!ft_strncmp(tok[i], str, ft_strlen(tok[i])))
+		{
+			if (i < 2)
+				data->text_no = img;
+			else if (i < 4)
+				data->text_so = img;
+			else if (i < 6)
+				data->text_we = img;
+			else if (i < 8)
+				data->text_ea = img;
+			return ;
+		}
+		i++;
+	}
 }
 
 void	create_texture(t_data *data, char *str, int fd, t_img *img)
@@ -37,14 +78,7 @@ void	create_texture(t_data *data, char *str, int fd, t_img *img)
 			&img->line_len,
 			&img->endian
 			);
-	if (!ft_strncmp(str, "NO", 2))
-		data->text_no = img;
-	if (!ft_strncmp(str, "SO", 2))
-		data->text_so = img;
-	if (!ft_strncmp(str, "WE", 2))
-		data->text_we = img;
-	if (!ft_strncmp(str, "EA", 2))
-		data->text_ea = img;
+	assign_texture(data, str, img);
 }
 
 void	get_texture(t_data *data, char *str, int fd)

@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 16:52:13 by habernar         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:50:42 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,6 @@ static void	render_rays(t_data *data)
 	}
 }
 
-void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
-{
-	wall->height = (CUBE_SIZE / ray->distance) * proj_dist;
-	wall->start = (W_HEIGHT / 2) - (wall->height / 2);
-	wall->end = (W_HEIGHT / 2) + (wall->height / 2);
-	if (wall->start < 0)
-		wall->start = 0;
-	if (wall->end > W_HEIGHT)
-		wall->end = W_HEIGHT;
-}
-
 /*
 void render_walls(t_data *data)
 {
@@ -109,7 +98,6 @@ void render_walls(t_data *data)
 		i++;
 	}
 }
-*/
 void render_walls(t_data *data)
 {
     int        i, j;
@@ -152,6 +140,30 @@ void render_walls(t_data *data)
         i++;
     }
 }
+*/
+
+void	render_textures_and_colors(t_data *data)
+{
+	int			i;
+	int			j;
+	t_render	render_info;
+
+	i = 0;
+	while (i < NUM_RAYS)
+	{
+		calculate_wall_height(&render_info.wall, data->rays[i].distance * \
+		cos(data->rays[i].angle - data->player.angle));
+		j = 0;
+		while (j < render_info.wall.start)
+			img_pix_put(&data->img, i, j++, data->color_ceiling);
+		determine_texture(data, i, &render_info);
+		render_wall(data, i, render_info);
+		j = render_info.wall.end;
+		while (j < W_HEIGHT)
+			img_pix_put(&data->img, i, j++, data->color_floor);
+		i++;
+	}
+}
 
 int	render(t_data *data)
 {
@@ -160,7 +172,8 @@ int	render(t_data *data)
 	init_rays(data);
 	move_player(data, &data->player);
 	render_background(&data->img, 0x000000);
-	render_walls(data);
+	//render_walls(data);
+	render_textures_and_colors(data);
 	render_map(data);
 	draw_rect(&data->img, (t_rect){
 			(data->player.pos.x - 5) * SCALE_MAP,
