@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 17:04:49 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:06:21 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ typedef struct s_wall
 	float	height;
 }	t_wall;
 
+typedef struct s_render
+{
+	t_wall	wall;
+	t_img	*texture;
+	int		tex_x;
+}	t_render;
+
 typedef struct s_ray
 {
 	t_vec2	hit;
@@ -162,5 +169,8 @@ void	exit_game(t_data *data);
 
 /* parse */
 void	parse_map(t_data *data, char *str);
+
+/* render */
+void	render_textures_and_colors(t_data *data);
 
 #endif
