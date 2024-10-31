@@ -16,6 +16,12 @@ SRC_FILES = main.c \
 			movement.c \
 			maths_utils.c \
 			draw.c \
+			texture.c \
+			wall.c \
+			tab.c \
+			exit.c \
+			parse.c \
+			map.c \
 			raycasting.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
 
