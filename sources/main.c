@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 13:34:39 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:35:05 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void get_color(t_data *data, char *str, char c, int fd)
 		ft_putstr_fd("Error, color values out of range [0, 255]\n", 2);
 		return (free(head), close(fd), exit_game(data));
 	}
-	if (c == 'F')
+	if (c == 'C')
 		data->color_ceiling = (r << 16) | (g << 8) | b;
 	else
 		data->color_floor = (r << 16) | (g << 8) | b;

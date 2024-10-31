@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 14:13:16 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:32:40 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,34 +81,6 @@ void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
 		wall->end = W_HEIGHT;
 }
 
-// void render_walls(t_data *data)
-// {
-// 	int		i;
-// 	int		j;
-// 	t_wall	wall;
-// 	float	proj_dist;
-
-// 	proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
-// 	i = 0;
-// 	while (i < NUM_RAYS)
-// 	{
-// 		get_wall_parameters(&wall, &data->rays[i], proj_dist);
-// 		j = 0;
-// 		while (j < wall.start)
-// 			img_pix_put(&data->img, i, j++, 0x87CEEB);
-// 		while (j < wall.end)
-// 		{
-// 			if (data->rays[i].hitvertical)
-// 				img_pix_put(&data->img, i, j++, 0xFFFFAa);
-// 			else
-// 			img_pix_put(&data->img, i, j++, 0xFFFFe0);
-// 		}
-// 		while (j < W_HEIGHT)
-// 			img_pix_put(&data->img, i, j++, 0x808080);
-// 		i++;
-// 	}
-// }
-
 void render_walls(t_data *data)
 {
 	int		i;
@@ -125,21 +97,28 @@ void render_walls(t_data *data)
 	{
 		get_wall_parameters(&wall, &data->rays[i], proj_dist);
 		j = 0;
+
 		while (j < wall.start)
-			img_pix_put(&data->img, i, j++, 0x87CEEB);
+			img_pix_put(&data->img, i, j++, data->color_ceiling);
 		if (data->rays[i].hitvertical)
+		{
 			texture = data->rays[i].rayfacingleft ? data->text_we : data->text_ea;
+			tex_x = (int)(fmod(data->rays[i].hit.y, texture->width));
+		}
 		else
+		{
 			texture = data->rays[i].rayfacingup ? data->text_no : data->text_so;
+			tex_x = (int)(fmod(data->rays[i].hit.x, texture->width));
+		}
 		while (j < wall.end)
 		{
-			tex_x = (int)((i % texture->width) * texture->width / W_WIDTH);
 			tex_y = (int)(((j - wall.start) * texture->height) / (wall.end - wall.start));
 			pixel = texture->addr + (tex_y * texture->line_len + tex_x * (texture->bpp / 8));
 			img_pix_put(&data->img, i, j++, *(unsigned int *)pixel);
 		}
 		while (j < W_HEIGHT)
-			img_pix_put(&data->img, i, j++, 0x808080);
+			img_pix_put(&data->img, i, j++, data->color_floor);
+
 		i++;
 	}
 }
