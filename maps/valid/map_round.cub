@@ -1,7 +1,7 @@
-NO ./textures/red.xpm
-SO ./textures/red.xpm
-WE ./textures/red.xpm
-EA ./textures/red.xpm
+NO ./textures/brick.xpm
+SO ./textures/cracked_brick.xpm
+WE ./textures/cracked_tiles.xpm
+EA ./textures/tiles.xpm
 
 F 120,0,0
 C 193,18,31
