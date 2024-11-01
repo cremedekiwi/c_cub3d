@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 19:59:11 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/02 00:21:19 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@
 # define FILEFORMAT "Error, file must be .cub\n"
 # define CARDINAL "Error, must be one cardinal point\n"
 # define EMPTY_LINE "Error, empty line in map\n"
+# define EMPTY_FILE "Error, empty file\n"
+# define MAP "Error, file contains an open map\n"
+# define MAP_ARGS "Error, file does not contain every arguments\n"
 
 typedef struct s_vec2
 {
@@ -161,7 +164,7 @@ void	get_map(t_data *data, char *str, int fd);
 /* tab */
 void	free_tab(char **tab);
 char	**tab_append(char **tab, char *str);
-void	copy_tab(t_data *data, char **tab, int fd);
+void	copy_tab(t_data *data, char **tab);
 /* texture */
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);

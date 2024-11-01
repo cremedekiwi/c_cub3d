@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 17:20:51 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/02 00:11:59 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	init_values(t_data *data)
 	data->text_so = 0;
 	data->text_we = 0;
 	data->text_ea = 0;
-	data->color_floor = -1;
-	data->color_ceiling = -1;
+	data->color_floor = INT_MIN;
+	data->color_ceiling = INT_MIN;
 	data->map.m = 0;
 	data->map.rows = 0;
 	data->map.cols = 0;
