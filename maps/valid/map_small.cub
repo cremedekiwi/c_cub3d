@@ -1,10 +1,10 @@
-NO ./textures/vine.xpm
-SO ./textures/vine.xpm
-WE ./textures/vine.xpm
-EA ./textures/vine.xpm
+NO ./textures/cherry.xpm
+SO ./textures/cherry.xpm
+WE ./textures/cherry.xpm
+EA ./textures/cherry.xpm
 
-F 11,21,32
-C 135,206,235
+F 112,128,144
+C 211,211,211
 
 111111
 100001

@@ -1,9 +1,9 @@
-F 11,21,32
-NO ./textures/vine.xpm
-SO ./textures/vine.xpm
-C 135,206,235
-                     WE ./textures/vine.xpm
-EA ./textures/vine.xpm
+F 120,144,156
+NO ./textures/ice.xpm
+SO ./textures/ice.xpm
+C 224,255,255
+                     WE ./textures/ice.xpm
+EA ./textures/ice.xpm
 
 
 1111                          1   1111

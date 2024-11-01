@@ -1,7 +1,7 @@
-NO ./textures/desert.xpm
-SO ./textures/ice.xpm
-WE ./textures/pink.xpm
-EA ./textures/red.xpm
+NO ./textures/birch.xpm
+SO ./textures/cherry.xpm
+WE ./textures/ice.xpm
+EA ./textures/lava.xpm
 
 F 205,180,219
 C 189,224,254

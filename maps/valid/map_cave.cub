@@ -1,9 +1,9 @@
-NO ./textures/vine.xpm
-SO ./textures/vine.xpm
-WE ./textures/vine.xpm
-EA ./textures/vine.xpm
+NO ./textures/oak.xpm
+SO ./textures/oak.xpm
+WE ./textures/oak.xpm
+EA ./textures/oak.xpm
 
-F 11,21,32
+F 160,82,45
 C 135,206,235
 
         11111111111
