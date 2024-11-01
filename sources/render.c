@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 23:35:07 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:45:51 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	render_background(t_img *img, int color)
 	{
 		j = 0;
 		while (j < W_WIDTH)
-			img_pix_put(img, j++, i, color);
+			img_pix_put(img, j++, i , color);
 		i++;
 	}
 }
 
 static void	render_map(t_data *data)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	draw_rect(&data->img, (t_rect){0, 0,
 		data->map.rows * CUBE_SIZE * SCALE_MAP,
@@ -58,29 +58,39 @@ static void	render_map(t_data *data)
 
 static void	render_rays(t_data *data)
 {
-	int		i;
-	t_vec2	scale1;
-	t_vec2	scale2;
+	int	i;
 
 	i = 0;
 	while (i < NUM_RAYS)
 	{
-		scale1 = vec2_scale(data->player.pos, SCALE_MAP);
-		scale2 = vec2_scale(data->rays[i].hit, SCALE_MAP);
-		draw_line(data, scale1.x, scale1.y, scale2.x, scale2.y);
+		t_vec2 scale1 = vec2_scale(data->player.pos, SCALE_MAP);
+		t_vec2 scale2 = vec2_scale(data->rays[i].hit, SCALE_MAP);
+		draw_line(data,scale1.x, scale1.y, scale2.x, scale2.y);
 		i++;
 	}
 }
 
-void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
+void	render_textures_and_colors(t_data *data)
 {
-	wall->height = (CUBE_SIZE / ray->distance) * proj_dist;
-	wall->start = (W_HEIGHT / 2) - (wall->height / 2);
-	wall->end = (W_HEIGHT / 2) + (wall->height / 2);
-	if (wall->start < 0)
-		wall->start = 0;
-	if (wall->end > W_HEIGHT)
-		wall->end = W_HEIGHT;
+	int			i;
+	int			j;
+	t_render	render_info;
+
+	i = 0;
+	while (i < NUM_RAYS)
+	{
+		calculate_wall_height(&render_info.wall, data->rays[i].distance * \
+		cos(data->rays[i].angle - data->player.angle));
+		j = 0;
+		while (j < render_info.wall.start)
+			img_pix_put(&data->img, i, j++, data->color_ceiling);
+		determine_texture(data, i, &render_info);
+		render_wall(data, i, render_info);
+		j = render_info.wall.end;
+		while (j < W_HEIGHT)
+			img_pix_put(&data->img, i, j++, data->color_floor);
+		i++;
+	}
 }
 
 int	render(t_data *data)
@@ -92,13 +102,13 @@ int	render(t_data *data)
 	render_background(&data->img, 0x000000);
 	render_textures_and_colors(data);
 	render_map(data);
-	draw_rect(&data->img, (t_rect){(data->player.pos.x - 5) * SCALE_MAP, \
-		(data->player.pos.y - 5) * SCALE_MAP, \
-		10 * SCALE_MAP, \
-		10 * SCALE_MAP, \
-		0xFFFFFF});
+	draw_rect(&data->img, (t_rect){
+			(data->player.pos.x - 5) * SCALE_MAP,
+			(data->player.pos.y - 5 ) * SCALE_MAP,
+			10 * SCALE_MAP,
+			10 * SCALE_MAP,
+			0xFFFFFF});
 	render_rays(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, \
-	data->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.mlx_img, 0, 0);
 	return (0);
 }

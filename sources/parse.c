@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 17:11:24 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:44:23 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,18 @@ int	is_last_argument(t_data *data)
 		&& data->text_no && data->text_so && data->text_ea
 		&& data->text_we)
 		return (1);
-	return (exit_error(data, MAP_NOT_LAST), 0);
+	return (0);
+}
+
+void	check_extension(t_data *data, char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len < 4)
+		exit_error(data, FILEFORMAT);
+	if (ft_strncmp(".cub", str + len - 4, 4))
+		exit_error(data, FILEFORMAT);
 }
 
 void	parse_map(t_data *data, char *str)
@@ -47,6 +58,7 @@ void	parse_map(t_data *data, char *str)
 	int		fd;
 	char	*line;
 
+	check_extension(data, str);
 	fd = open(str, O_RDONLY);
 	if (fd <= 0)
 		exit_error(data, FD);
@@ -57,7 +69,7 @@ void	parse_map(t_data *data, char *str)
 			get_texture(data, line, fd);
 		else if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 			get_color(data, line, line[0], fd);
-		else if (is_map(line) && is_last_argument(data))
+		else if (is_last_argument(data) && is_map(line))
 		{
 			get_map(data, line, fd);
 			break ;
