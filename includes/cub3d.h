@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:47:00 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:12:03 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define EMPTY_FILE "Error, empty file\n"
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
+# define MAP_CHAR "Error, file does contain invalid char\n"
 
 typedef struct s_vec2
 {
@@ -144,7 +145,6 @@ int		handle_keyrelease(int keysym, t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 int		render(t_data *data);
 void	move_player(t_data *data, t_player *player);
-int		cursor_motion(int x, int y, t_data *data);
 int		ft_abs(int x);
 float	angle_normalize(float angle);
 float	distance(t_vec2 v1, t_vec2 v2);
@@ -157,6 +157,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
 
+int	cursor_motion(int x, int y, t_data *data);
 /* map */
 int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
