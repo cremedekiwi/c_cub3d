@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/02 00:17:03 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:02:27 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,13 @@ void	is_map_open(t_data *data)
 	free_tab(m);
 }
 
+int invalid_char(char c)
+{
+	if (c == ' ' || c == '\n' || c == '1' || c == '0'
+		|| c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (0);
+	return (1);
+}
 void	verify_arguments(t_data *data)
 {
 	int		i;
@@ -166,6 +173,8 @@ void	verify_arguments(t_data *data)
 		{
 			if (data->map.m[i][j] != ' ')
 				whitespace = 0;
+			if (invalid_char(data->map.m[i][j]))
+				exit_error(data, MAP_CHAR);
 			j++;
 		}
 		if (whitespace == 1)
