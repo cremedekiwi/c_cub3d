@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:29:44 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:43:43 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	is_map(char *str)
 {
@@ -65,8 +65,8 @@ void	get_player_position(t_data *data)
 			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
 				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
 			{
-				data->player.pos.x = j * CUBE_SIZE;
-				data->player.pos.y = i * CUBE_SIZE;
+				data->player.pos.x = j * CUBE_SIZE + (float)CUBE_SIZE / 2;
+				data->player.pos.y = i * CUBE_SIZE + (float)CUBE_SIZE / 2;
 			}
 			if (data->map.m[i][j] == 'N')
 				data->player.angle = -PI / 2;
@@ -80,11 +80,11 @@ void	get_player_position(t_data *data)
 	}
 }
 
-void remove_cardinal(t_data *data)
+void	remove_cardinal(t_data *data)
 {
 	int	i;
 	int	j;
-	int c;
+	int	c;
 
 	i = -1;
 	c = 0;
@@ -107,20 +107,58 @@ void remove_cardinal(t_data *data)
 		exit_error(data, CARDINAL);
 }
 
+int	flood_fill(t_data *data, char **m, int i, int j)
+{
+	if (i < 0 || j < 0 || j == data->map.cols || i == data->map.rows)
+		return (false);
+	else if ((i == 0 || i == data->map.rows - 1
+			|| j == 0 || j == data->map.cols - 1)
+		&& (m[i][j] == '0' || m[i][j] == ' '))
+		return (true);
+	else if (m[i][j] == '1')
+		return (false);
+	m[i][j] = '1';
+	return (flood_fill(data, m, i + 1, j)
+		|| flood_fill(data, m, i - 1, j)
+		|| flood_fill(data, m, i, j + 1)
+		|| flood_fill(data, m, i, j - 1));
+}
+
 void	is_map_open(t_data *data)
 {
+	int		i;
+	int		j;
+	char	**m;
 
+	m = (char **)malloc(sizeof(char *) * (data->map.rows + 1));
+	if (!m)
+		exit_error(data, MALLOC);
+	i = -1;
+	while (data->map.m[++i])
+		m[i] = ft_strdup(data->map.m[i]);
+	m[i] = 0;
+	i = -1;
+	while (++i < data->map.rows)
+	{
+		j = -1;
+		while (++j < data->map.cols)
+		{
+			if (m[i][j] == '0' && flood_fill(data, m, i, j))
+				return (free_tab(m), exit_error(data, MAP), (void)0);
+		}
+	}
+	free_tab(m);
 }
 
 void	verify_arguments(t_data *data)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 	bool	whitespace;
 
 	i = 0;
-	is_map_open(data);
 	whitespace = 1;
+	is_map_open(data);
 	while (data->map.m && data->map.m[i])
 	{
 		j = 0;
@@ -139,17 +177,9 @@ void	verify_arguments(t_data *data)
 	i = 0;
 	while (data->map.m && data->map.m[i])
 	{
-		// printf("%s\n", data->map.m[i]);
-		/*
-		j = 0;
-		while (data->map.m[i][j])
-		{
-			j++;
-		}
-		*/
+		printf("%s\n", data->map.m[i]);
 		i++;
 	}
-
 }
 
 void	get_map(t_data *data, char *str, int fd)
@@ -165,8 +195,9 @@ void	get_map(t_data *data, char *str, int fd)
 		free(str);
 		str = get_next_line(fd);
 	}
+	close(fd);
 	get_map_dimension(data, tab);
-	copy_tab(data, tab, fd);
+	copy_tab(data, tab);
 	get_player_position(data);
 	verify_arguments(data);
 }

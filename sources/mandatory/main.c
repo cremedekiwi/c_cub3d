@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:29:42 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:43:02 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 static void	init_values(t_data *data)
 {
@@ -20,8 +20,8 @@ static void	init_values(t_data *data)
 	data->text_so = 0;
 	data->text_we = 0;
 	data->text_ea = 0;
-	data->color_floor = -1;
-	data->color_ceiling = -1;
+	data->color_floor = INT_MIN;
+	data->color_ceiling = INT_MIN;
 	data->map.m = 0;
 	data->map.rows = 0;
 	data->map.cols = 0;
@@ -33,7 +33,7 @@ static void	init_values(t_data *data)
 	data->player.angle = 0;
 }
 
-static void init_game(t_data *data)
+static void	init_game(t_data *data)
 {
 	init_values(data);
 	data->mlx_ptr = mlx_init();
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
-	mlx_hook(data.mlx_win, DestroyNotify, NoEventMask, &handle_click, &data);
+	mlx_hook(data.mlx_win, MotionNotify, PointerMotionMask, &cursor_motion, &data);
+	mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
 	mlx_loop(data.mlx_ptr);
 }

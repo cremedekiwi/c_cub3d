@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:29:37 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:29:47 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:44:13 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	ft_abs(int x)
 {

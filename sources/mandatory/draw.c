@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:08:55 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:29:36 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:44:06 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
