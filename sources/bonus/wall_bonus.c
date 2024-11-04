@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:12:31 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:28:50 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 int is_wall_at(t_data *data, float x, float y)
 {

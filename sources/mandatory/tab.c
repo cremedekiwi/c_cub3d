@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:12:33 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:45:56 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:30:02 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 void	free_tab(char **tab)
 {

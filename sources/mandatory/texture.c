@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:46:08 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:30:06 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 int	is_texture(char *str)
 {

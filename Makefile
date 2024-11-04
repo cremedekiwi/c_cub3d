@@ -10,7 +10,7 @@ MLX = $(MLX_PATH)libmlx.a
 
 INCLUDES = -I./includes -I$(LIBFT_PATH) -I$(MLX_PATH)
 
-SRC_PATH = sources/
+SRC_PATH = sources/mandatory/
 BONUS_PATH = sources/bonus/
 OBJ_PATH = obj/
 

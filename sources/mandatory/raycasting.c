@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:44:33 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:29:55 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 static void	get_ray_orientation(t_ray *ray, float ray_angle)
 {
