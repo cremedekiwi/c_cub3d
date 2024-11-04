@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:46:43 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:58:04 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
 # define SCALE_MAP 0.3
-# define VELOCITY 2
+# define VELOCITY 1
 # define ANGULAR_VELOCITY (PI / 200)
 # define MLX_PTR "Error: mlx_init failed\n"
 # define MLX_WIN "Error: mlx_new_window() failed\n"
@@ -139,13 +139,14 @@ typedef struct s_rect
 
 int		handle_keyrelease(int keysym, t_data *data);
 int		handle_keypress(int keysym, t_data *data);
+int		handle_click(t_data *data);
 int		render(t_data *data);
 void	move_player(t_data *data, t_player *player);
 int		ft_abs(int x);
 float	angle_normalize(float angle);
 float	distance(t_vec2 v1, t_vec2 v2);
 void	exit_game(t_data *data);
-int		is_wall_at(t_data *data,float x, float y);
+int		is_wall_at(t_data *data, float x, float y);
 void	init_rays(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 //void	draw_line(t_data *data, t_vec2 v1, t_vec2 v2);
@@ -158,20 +159,24 @@ int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
 void	get_player_position(t_data *data);
 void	get_map(t_data *data, char *str, int fd);
+
 /* tab */
 void	free_tab(char **tab);
 char	**tab_append(char **tab, char *str);
 void	copy_tab(t_data *data, char **tab, int fd);
+
 /* texture */
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);
 void	get_texture(t_data *data, char *str, int fd);
+
 /* exit */
 void	exit_error(t_data *data, char *msg);
 void	exit_game(t_data *data);
 
 /* parse */
 void	parse_map(t_data *data, char *str);
+
 /* wall */
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist);
 void	calculate_wall_height(t_wall *wall, float corrected_distance);

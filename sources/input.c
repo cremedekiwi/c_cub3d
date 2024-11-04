@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:25 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:43:19 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:57:01 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,11 @@ int	handle_keypress(int keysym, t_data *data)
 		data->player.delta_angle -= 1;
 	if (keysym == XK_Right)
 		data->player.delta_angle += 1;
+	return (0);
+}
+
+int	handle_click(t_data *data)
+{
+	exit_game(data);
 	return (0);
 }
