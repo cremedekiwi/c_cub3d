@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/02 00:21:19 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:02:53 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define EMPTY_FILE "Error, empty file\n"
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
+# define MAP_CHAR "Error, file does contain invalid char\n"
 
 typedef struct s_vec2
 {
@@ -156,6 +157,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
 
+int	cursor_motion(int x, int y, t_data *data);
 /* map */
 int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
