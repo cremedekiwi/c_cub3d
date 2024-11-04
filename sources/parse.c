@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/02 00:24:59 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:27:22 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ void	get_color(t_data *data, char *str, char c, int fd)
 	head = str++;
 	r = ft_atoi(str);
 	str = ft_strchr(str, ',');
+	if (!str)
+		return (free(head), close(fd), exit_error(data, MAP_ARGS));
 	g = ft_atoi(++str);
 	str = ft_strchr(str, ',');
+	if (!str)
+		return (free(head), close(fd), exit_error(data, MAP_ARGS));
 	b = ft_atoi(++str);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (free(head), close(fd), exit_error(data, COLOR));
@@ -69,7 +73,7 @@ void	parse_map(t_data *data, char *str)
 	{
 		if (is_texture(line))
 			get_texture(data, line, fd);
-		else if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
+		else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 			get_color(data, line, line[0], fd);
 		else if (is_map(line) && is_last_argument(data))
 			return (get_map(data, line, fd));

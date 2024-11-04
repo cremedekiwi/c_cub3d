@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 17:13:02 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:02:23 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	is_texture(char *str)
 {
-	static const char *tok[] = {
+	static const char	*tok[] = {
 		"NO", "N", "SO", "S", "WE", "W",
 		"EA", "E", 0
 	};
-	int	i;
+	int					i;
+	int					len;
 
 	i = 0;
 	while (i < 8)
@@ -26,7 +27,8 @@ int	is_texture(char *str)
 		if (ft_strlen(str) > ft_strlen(tok[i])
 			&& !ft_strncmp(tok[i], str, ft_strlen(tok[i])))
 		{
-			if (ft_strchr(str, '.'))
+			len = ft_strlen(str);
+			if (!ft_strncmp(".xpm\n", str + len - 5, 5))
 				return (1);
 			return (0);
 		}
@@ -37,12 +39,11 @@ int	is_texture(char *str)
 
 void	assign_texture(t_data *data, char *str, t_img *img)
 {
-
-	static const char *tok[] = {
+	static const char	*tok[] = {
 		"NO", "N", "SO", "S", "WE", "W",
 		"EA", "E", 0
 	};
-	int	i;
+	int					i;
 
 	i = 0;
 	while (i < 8)
@@ -85,15 +86,21 @@ void	get_texture(t_data *data, char *str, int fd)
 {
 	t_img	*img;
 	size_t	len;
+	char	*head;
 
+	head = str;
 	img = (t_img *)malloc(sizeof(t_img));
 	if (!img)
 		return (free(str), close(fd), exit_error(data, MALLOC));
-	img->path = ft_strdup(ft_strchr(str, '.'));
+	while (ft_isalpha(*str))
+		str++;
+	while (*str == ' ' || *str == '\t')
+		str++;
+	img->path = ft_strdup(str);
 	if (!img->path)
-		return (free(str), close(fd), exit_error(data, MALLOC));
+		return (free(head), close(fd), exit_error(data, MALLOC));
 	len = ft_strlen(img->path);
 	if (len > 0)
 		img->path[ft_strlen(img->path) - 1] = 0;
-	create_texture(data, str, fd, img);
+	create_texture(data, head, fd, img);
 }

@@ -6,17 +6,23 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/01 20:46:02 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:16:10 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int is_wall_at(t_data *data, float x, float y)
+int	is_wall_at(t_data *data, float x, float y)
 {
-	if (x < 0 || x >= data->map.cols * CUBE_SIZE || y < 0 || y >= data->map.rows * CUBE_SIZE)
+	int	idx;
+	int	idy;
+
+	if (x < 0 || x >= data->map.cols * CUBE_SIZE
+		|| y < 0 || y >= data->map.rows * CUBE_SIZE)
 		return (1);
-	return (data->map.m[(int)floor(y / CUBE_SIZE)][(int)floor(x / CUBE_SIZE)] == '1');
+	idy = floor(y / CUBE_SIZE);
+	idx = floor(x / CUBE_SIZE);
+	return (data->map.m[idy][idx] == '1');
 }
 
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
@@ -45,7 +51,7 @@ void	determine_texture(t_data *data, int ray_index, t_render *render_info)
 	if (data->rays[ray_index].hitvertical)
 	{
 		if (data->rays[ray_index].rayfacingleft)
-		render_info->texture = data->text_we;
+			render_info->texture = data->text_we;
 		else
 			render_info->texture = data->text_ea;
 		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
@@ -79,4 +85,3 @@ void	render_wall(t_data *data, int ray_index, t_render render_info)
 		img_pix_put(&data->img, ray_index, j++, *(unsigned int *)pixel);
 	}
 }
-

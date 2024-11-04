@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/02 00:11:59 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:11:27 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	init_values(t_data *data)
 	data->player.angle = 0;
 }
 
-static void init_game(t_data *data)
+static void	init_game(t_data *data)
 {
 	init_values(data);
 	data->mlx_ptr = mlx_init();
@@ -60,5 +60,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
+	mlx_hook(data.mlx_win, MotionNotify, PointerMotionMask, &cursor_motion, &data);
+	//mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
 	mlx_loop(data.mlx_ptr);
 }
