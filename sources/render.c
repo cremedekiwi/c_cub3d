@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/31 18:50:42 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:09:38 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,90 @@ static void	render_map(t_data *data)
 	}
 }
 
+int ft_max(int x, int y)
+{
+	return (x > y ? x : y);
+}
+
+int ft_min(int x, int y)
+{
+	return (x < y ? x : y);
+}
+static void render_minimap(t_data *data)
+{
+    int view_radius = 22; // Nombre de cases visibles autour du joueur
+    int player_grid_x = data->player.pos.x / CUBE_SIZE;
+    int player_grid_y = data->player.pos.y / CUBE_SIZE;
+
+    // Limites de la zone visible autour du joueur
+    int start_x = ft_max(0, player_grid_x - view_radius);
+    int end_x = ft_min(data->map.cols - 1, player_grid_x + view_radius);
+    int start_y = ft_max(0, player_grid_y - view_radius);
+    int end_y = ft_min(data->map.rows - 1, player_grid_y + view_radius);
+
+    // Taille de la minimap en pixels, basée sur un zoom fixe
+    int minimap_size = (view_radius * 2 + 1) * CUBE_SIZE * SCALE_MAP;
+    draw_rect(&data->img, (t_rect){0, 0, minimap_size, minimap_size, 0x000000});
+
+    // Offset pour centrer la minimap sur le joueur
+    float center_offset_x = (view_radius * CUBE_SIZE * SCALE_MAP) - 
+                           (data->player.pos.x * SCALE_MAP - start_x * CUBE_SIZE * SCALE_MAP);
+    float center_offset_y = (view_radius * CUBE_SIZE * SCALE_MAP) - 
+                           (data->player.pos.y * SCALE_MAP - start_y * CUBE_SIZE * SCALE_MAP);
+
+    // Dessin des murs dans la zone visible
+    for (int y = start_y; y <= end_y; y++)
+    {
+        for (int x = start_x; x <= end_x; x++)
+        {
+            if (data->map.m[y][x] == '1')
+            {
+                draw_rect(&data->img, (t_rect){
+                    (x - start_x) * CUBE_SIZE * SCALE_MAP + center_offset_x,
+                    (y - start_y) * CUBE_SIZE * SCALE_MAP + center_offset_y,
+                    CUBE_SIZE * SCALE_MAP,
+                    CUBE_SIZE * SCALE_MAP,
+                    0x787878
+                });
+            }
+        }
+    }
+
+    // Dessiner le joueur au centre de la minimap
+    draw_rect(&data->img, (t_rect){
+        view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
+        view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
+        10 * SCALE_MAP,
+        10 * SCALE_MAP,
+        0xFFFFFF
+    });
+
+    // Dessiner les rayons visibles
+    int i = 0;
+    while (i < NUM_RAYS)
+    {
+        // Calculer les points de départ et de fin du rayon
+        t_vec2 ray_start = (t_vec2){
+            view_radius * CUBE_SIZE * SCALE_MAP,
+            view_radius * CUBE_SIZE * SCALE_MAP
+        };
+        t_vec2 ray_end = (t_vec2){
+            (data->rays[i].hit.x - data->player.pos.x) * SCALE_MAP + ray_start.x,
+            (data->rays[i].hit.y - data->player.pos.y) * SCALE_MAP + ray_start.y
+        };
+
+        // Clipper le rayon pour qu'il reste dans le cadre de la minimap
+        //if (ray_end.x < 0) ray_end.x = 0;
+        //if (ray_end.y < 0) ray_end.y = 0;
+        if (ray_end.x > minimap_size) ray_end.x = minimap_size;
+        if (ray_end.y > minimap_size) ray_end.y = minimap_size;
+
+        // Dessiner le rayon clippé
+        draw_line(data, ray_start.x, ray_start.y, ray_end.x, ray_end.y);
+        i++;
+    }
+}
+
 static void	render_rays(t_data *data)
 {
 	int	i;
@@ -70,77 +154,6 @@ static void	render_rays(t_data *data)
 	}
 }
 
-/*
-void render_walls(t_data *data)
-{
-	int		i;
-	int		j;
-	t_wall	wall;
-	float	proj_dist;
-
-	proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		get_wall_parameters(&wall, &data->rays[i], proj_dist);
-		j = 0;
-		while (j < wall.start)
-			img_pix_put(&data->img, i, j++, data->color_ceiling);
-		while (j < wall.end)
-		{
-			if (data->rays[i].hitvertical)
-				img_pix_put(&data->img, i, j++, 0xFFFFAa);
-			else
-			img_pix_put(&data->img, i, j++, 0xFFFFe0);
-		}
-		while (j < W_HEIGHT)
-			img_pix_put(&data->img, i, j++, data->color_floor);
-		i++;
-	}
-}
-void render_walls(t_data *data)
-{
-    int        i, j;
-    t_wall    wall;
-    int        tex_x, tex_y;
-    char    *pixel;
-    t_img    *texture;
-    float    proj_dist, corrected_distance;
-
-    proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
-    i = 0;
-    while (i < NUM_RAYS)
-    {
-        float angle_diff = data->rays[i].angle - data->player.angle;
-        corrected_distance = data->rays[i].distance * cos(angle_diff);
-        wall.height = (CUBE_SIZE / corrected_distance) * proj_dist;
-        wall.start = (W_HEIGHT / 2) - (wall.height / 2);
-        wall.end = wall.start + wall.height;
-        j = 0;
-        while (j < wall.start)
-            img_pix_put(&data->img, i, j++, data->color_ceiling);
-        if (data->rays[i].hitvertical)
-        {
-            texture = data->rays[i].rayfacingleft ? data->text_we : data->text_ea;
-            tex_x = (int)(fmod(data->rays[i].hit.y, texture->width));
-        }
-        else
-        {
-            texture = data->rays[i].rayfacingup ? data->text_no : data->text_so;
-            tex_x = (int)(fmod(data->rays[i].hit.x, texture->width));
-        }
-        while (j < wall.end && j < W_HEIGHT)
-        {
-            tex_y = (int)(((j - wall.start) * texture->height) / wall.height);
-            pixel = texture->addr + (tex_y * texture->line_len + tex_x * (texture->bpp / 8));
-            img_pix_put(&data->img, i, j++, *(unsigned int *)pixel);
-        }
-        while (j < W_HEIGHT)
-            img_pix_put(&data->img, i, j++, data->color_floor);
-        i++;
-    }
-}
-*/
 
 void	render_textures_and_colors(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 17:02:27 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:21:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	get_map_dimension(t_data *data, char **tab)
 		i++;
 	}
 	data->map.rows = i;
-	data->map.cols = max_length - 1;
+	//data->map.cols = max_length - 1;
+	data->map.cols = max_length; //- 1;
 }
 
 void	get_player_position(t_data *data)
@@ -157,6 +158,24 @@ int invalid_char(char c)
 		return (0);
 	return (1);
 }
+
+int is_empty_line(char *str)
+{
+	int len;
+
+	len = ft_strlen(str);
+	if (*str == '\n')
+		return (1);
+	while (*str)
+	{
+		if (!(*str == ' ' || *str == '\t' || *str == '\v'))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+
 void	verify_arguments(t_data *data)
 {
 	int		i;
@@ -196,6 +215,7 @@ void	get_map(t_data *data, char *str, int fd)
 	char	**tab;
 
 	tab = 0;
+	//while (str && !is_empty_line(str))
 	while (str)
 	{
 		tab = tab_append(tab, str);
