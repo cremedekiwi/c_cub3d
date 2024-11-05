@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_bonus.c                                      :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:25 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:28:24 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:54:54 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../includes/cub3d.h"
 
 int	handle_keyrelease(int keysym, t_data *data)
 {
@@ -45,11 +45,5 @@ int	handle_keypress(int keysym, t_data *data)
 		data->player.delta_angle -= 1;
 	if (keysym == XK_Right)
 		data->player.delta_angle += 1;
-	return (0);
-}
-
-int	handle_click(t_data *data)
-{
-	exit_game(data);
 	return (0);
 }

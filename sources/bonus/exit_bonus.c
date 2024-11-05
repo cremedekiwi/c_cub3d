@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_bonus.c                                       :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:22 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:28:21 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:54:45 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../includes/cub3d.h"
 
-static void free_textures(t_data *data)
+static void	free_texture(void *mlx_ptr, t_img *img)
 {
-	if (data->text_no && data->text_no->mlx_img)
+	if (img)
 	{
-		mlx_destroy_image(data->mlx_ptr, data->text_no->mlx_img);
-		free(data->text_no->path);
-		free(data->text_no);
-	}
-	if (data->text_so && data->text_so->mlx_img)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->text_so->mlx_img);
-		free(data->text_so->path);
-		free(data->text_so);
-	}
-	if (data->text_we && data->text_we->mlx_img)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->text_we->mlx_img);
-		free(data->text_we->path);
-		free(data->text_we);
-	}
-	if (data->text_ea && data->text_ea->mlx_img)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->text_ea->mlx_img);
-		free(data->text_ea->path);
-		free(data->text_ea);
+		if (img->path)
+			free(img->path);
+		mlx_destroy_image(mlx_ptr, img->mlx_img);
+		free(img);
 	}
 }
 
@@ -44,7 +27,10 @@ static void	free_ressources(t_data *data)
 {
 	if (data->mlx_ptr)
 	{
-		free_textures(data);
+		free_texture(data->mlx_ptr, data->text_no);
+		free_texture(data->mlx_ptr, data->text_ea);
+		free_texture(data->mlx_ptr, data->text_we);
+		free_texture(data->mlx_ptr, data->text_so);
 		if (data->img.mlx_img)
 			mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
 		if (data->mlx_win)

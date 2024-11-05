@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tab_bonus.c                                        :+:      :+:    :+:   */
+/*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:12:33 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:28:45 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:56:33 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../includes/cub3d.h"
 
 void	free_tab(char **tab)
 {
@@ -53,7 +53,7 @@ char	**tab_append(char **tab, char *str)
 	return (new);
 }
 
-void	copy_tab(t_data *data, char **tab, int fd)
+void	copy_tab(t_data *data, char **tab)
 {
 	int		j;
 	int		i;
@@ -61,14 +61,14 @@ void	copy_tab(t_data *data, char **tab, int fd)
 
 	new_tab = (char **)malloc(sizeof(char *) * (data->map.rows + 1));
 	if (!new_tab)
-		return (free_tab(tab), close(fd), exit_error(data, MALLOC));
+		return (free_tab(tab), exit_error(data, MALLOC));
 	i = -1;
 	while (tab && tab[++i])
 	{
 		new_tab[i] = (char *)malloc(sizeof(char) * (data->map.cols + 1));
 		if (!new_tab[i])
 			return (free_tab(tab), free_tab(new_tab),
-				close(fd), exit_error(data, MALLOC));
+				exit_error(data, MALLOC));
 		j = -1;
 		while (tab[i][++j] && tab[i][j] != '\n')
 			new_tab[i][j] = tab[i][j];
