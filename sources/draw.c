@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:08:55 by habernar          #+#    #+#             */
-/*   Updated: 2024/10/28 12:58:42 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/04 23:53:06 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1)
 
 	while (1)
 	{
-		img_pix_put(&data->img, x0,y0, 0xFFFF00);
+		img_pix_put(&data->img, x0,y0, 0xF7FF73);
 		if (x0 == x1 && y0 == y1) break;
         e2 = 2 * err;
 		if (e2 >= dy)
@@ -56,10 +56,10 @@ int draw_rect(t_img *img, t_rect rect)
 	int j;
 
 	i = rect.y;
-	while (i < rect.y + rect.height)
+	while (i <= rect.y + rect.height)
 	{
 		j = rect.x;
-		while (j < rect.x + rect.width)
+		while (j <= rect.x + rect.width)
 			img_pix_put(img, j++, i, rect.color);
 		i++;
 	}

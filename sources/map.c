@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 19:21:11 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:31:49 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,8 @@ void	get_map(t_data *data, char *str, int fd)
 	char	**tab;
 
 	tab = 0;
-	//while (str && !is_empty_line(str))
-	while (str)
+	//while (str)
+	while (str && !is_empty_line(str))
 	{
 		tab = tab_append(tab, str);
 		if (!tab)

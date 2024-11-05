@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/02 22:16:10 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/05 23:07:51 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,4 @@ void	render_wall(t_data *data, int ray_index, t_render render_info)
 		img_pix_put(&data->img, ray_index, j++, *(unsigned int *)pixel);
 	}
 }
+
