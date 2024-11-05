@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:53:41 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:38:01 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
 # define MAP_CHAR "Error, file does contain invalid char\n"
+# define TORCH_FRAMES 12
 
 typedef struct s_vec2
 {
@@ -100,10 +101,20 @@ typedef struct s_wall
 
 typedef struct s_render
 {
-    t_wall    wall;
-    t_img    *texture;
-    int        tex_x;
-}    t_render;
+	t_wall	wall;
+	t_img	*texture;
+	int		tex_x;
+}	t_render;
+
+typedef struct s_torch_info
+{
+	int		scaled_x;
+	int		scaled_y;
+	int		color;
+	int		screen_x;
+	int		screen_y;
+	float	scale;
+}	t_torch_info;
 
 typedef struct s_ray
 {
@@ -125,11 +136,14 @@ typedef struct	s_data
 	t_img		*text_so;
 	t_img		*text_we;
 	t_img		*text_ea;
+	t_img 		*torch[TORCH_FRAMES];
 	t_map		map;
 	t_player	player;
 	t_ray		rays[W_WIDTH];
 	int			color_ceiling;
 	int			color_floor;
+	int			current_frame;
+	int			frame_counter;
 }	t_data;
 
 typedef struct s_rect
@@ -182,5 +196,9 @@ void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist);
 void	calculate_wall_height(t_wall *wall, float corrected_distance);
 void	determine_texture(t_data *data, int ray_index, t_render *render_info);
 void	render_wall(t_data *data, int ray_index, t_render render_info);
+
+/* torch */
+void	update_and_draw_torch(t_data *data, int screen_x, int screen_y, \
+float scale);
 
 #endif

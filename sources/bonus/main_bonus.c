@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:55:03 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:36:20 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static void	init_values(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->mlx_ptr = 0;
 	data->mlx_win = 0;
 	data->text_no = 0;
 	data->text_so = 0;
 	data->text_we = 0;
 	data->text_ea = 0;
+	while (i < TORCH_FRAMES)
+	{
+		data->torch[i] = NULL;
+		i++;
+	}
 	data->color_floor = INT_MIN;
 	data->color_ceiling = INT_MIN;
 	data->map.m = 0;
@@ -47,6 +55,7 @@ static void	init_game(t_data *data)
 		exit_error(data, MLX_IMG);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
+	load_torch_texture(data);
 }
 
 int	main(int argc, char **argv)

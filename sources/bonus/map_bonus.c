@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:55:11 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:37:59 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	is_map(char *str)
 {
@@ -205,7 +205,7 @@ void	verify_arguments(t_data *data)
 	i = 0;
 	while (data->map.m && data->map.m[i])
 	{
-		printf("%s\n", data->map.m[i]);
+		// printf("%s\n", data->map.m[i]);
 		i++;
 	}
 }

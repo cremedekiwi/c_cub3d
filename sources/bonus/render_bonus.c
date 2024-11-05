@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:57:54 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:38:15 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static void	render_background(t_img *img, int color)
 {
@@ -67,77 +67,77 @@ int ft_min(int x, int y)
 }
 static void render_minimap(t_data *data)
 {
-    int view_radius = 22; // Nombre de cases visibles autour du joueur
-    int player_grid_x = data->player.pos.x / CUBE_SIZE;
-    int player_grid_y = data->player.pos.y / CUBE_SIZE;
+	int view_radius = 22; // Nombre de cases visibles autour du joueur
+	int player_grid_x = data->player.pos.x / CUBE_SIZE;
+	int player_grid_y = data->player.pos.y / CUBE_SIZE;
 
-    // Limites de la zone visible autour du joueur
-    int start_x = ft_max(0, player_grid_x - view_radius);
-    int end_x = ft_min(data->map.cols - 1, player_grid_x + view_radius);
-    int start_y = ft_max(0, player_grid_y - view_radius);
-    int end_y = ft_min(data->map.rows - 1, player_grid_y + view_radius);
+	// Limites de la zone visible autour du joueur
+	int start_x = ft_max(0, player_grid_x - view_radius);
+	int end_x = ft_min(data->map.cols - 1, player_grid_x + view_radius);
+	int start_y = ft_max(0, player_grid_y - view_radius);
+	int end_y = ft_min(data->map.rows - 1, player_grid_y + view_radius);
 
-    // Taille de la minimap en pixels, basée sur un zoom fixe
-    int minimap_size = (view_radius * 2 + 1) * CUBE_SIZE * SCALE_MAP;
-    draw_rect(&data->img, (t_rect){0, 0, minimap_size, minimap_size, 0x000000});
+	// Taille de la minimap en pixels, basée sur un zoom fixe
+	int minimap_size = (view_radius * 2 + 1) * CUBE_SIZE * SCALE_MAP;
+	draw_rect(&data->img, (t_rect){0, 0, minimap_size, minimap_size, 0x000000});
 
-    // Offset pour centrer la minimap sur le joueur
-    float center_offset_x = (view_radius * CUBE_SIZE * SCALE_MAP) -
-                           (data->player.pos.x * SCALE_MAP - start_x * CUBE_SIZE * SCALE_MAP);
-    float center_offset_y = (view_radius * CUBE_SIZE * SCALE_MAP) -
-                           (data->player.pos.y * SCALE_MAP - start_y * CUBE_SIZE * SCALE_MAP);
+	// Offset pour centrer la minimap sur le joueur
+	float center_offset_x = (view_radius * CUBE_SIZE * SCALE_MAP) -
+							(data->player.pos.x * SCALE_MAP - start_x * CUBE_SIZE * SCALE_MAP);
+	float center_offset_y = (view_radius * CUBE_SIZE * SCALE_MAP) -
+							(data->player.pos.y * SCALE_MAP - start_y * CUBE_SIZE * SCALE_MAP);
 
-    // Dessin des murs dans la zone visible
-    for (int y = start_y; y <= end_y; y++)
-    {
-        for (int x = start_x; x <= end_x; x++)
-        {
-            if (data->map.m[y][x] == '1')
-            {
-                draw_rect(&data->img, (t_rect){
-                    (x - start_x) * CUBE_SIZE * SCALE_MAP + center_offset_x,
-                    (y - start_y) * CUBE_SIZE * SCALE_MAP + center_offset_y,
-                    CUBE_SIZE * SCALE_MAP,
-                    CUBE_SIZE * SCALE_MAP,
-                    0x787878
-                });
-            }
-        }
-    }
+	// Dessin des murs dans la zone visible
+	for (int y = start_y; y <= end_y; y++)
+	{
+		for (int x = start_x; x <= end_x; x++)
+		{
+			if (data->map.m[y][x] == '1')
+			{
+				draw_rect(&data->img, (t_rect){
+					(x - start_x) * CUBE_SIZE * SCALE_MAP + center_offset_x,
+					(y - start_y) * CUBE_SIZE * SCALE_MAP + center_offset_y,
+					CUBE_SIZE * SCALE_MAP,
+					CUBE_SIZE * SCALE_MAP,
+					0x787878
+				});
+			}
+		}
+	}
 
-    // Dessiner le joueur au centre de la minimap
-    draw_rect(&data->img, (t_rect){
-        view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
-        view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
-        10 * SCALE_MAP,
-        10 * SCALE_MAP,
-        0xFFFFFF
-    });
+	// Dessiner le joueur au centre de la minimap
+	draw_rect(&data->img, (t_rect){
+		view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
+		view_radius * CUBE_SIZE * SCALE_MAP - 5 * SCALE_MAP,
+		10 * SCALE_MAP,
+		10 * SCALE_MAP,
+		0xFFFFFF
+	});
 
-    // Dessiner les rayons visibles
-    int i = 0;
-    while (i < NUM_RAYS)
-    {
-        // Calculer les points de départ et de fin du rayon
-        t_vec2 ray_start = (t_vec2){
-            view_radius * CUBE_SIZE * SCALE_MAP,
-            view_radius * CUBE_SIZE * SCALE_MAP
-        };
-        t_vec2 ray_end = (t_vec2){
-            (data->rays[i].hit.x - data->player.pos.x) * SCALE_MAP + ray_start.x,
-            (data->rays[i].hit.y - data->player.pos.y) * SCALE_MAP + ray_start.y
-        };
+	// Dessiner les rayons visibles
+	int i = 0;
+	while (i < NUM_RAYS)
+	{
+		// Calculer les points de départ et de fin du rayon
+		t_vec2 ray_start = (t_vec2){
+			view_radius * CUBE_SIZE * SCALE_MAP,
+			view_radius * CUBE_SIZE * SCALE_MAP
+		};
+		t_vec2 ray_end = (t_vec2){
+			(data->rays[i].hit.x - data->player.pos.x) * SCALE_MAP + ray_start.x,
+			(data->rays[i].hit.y - data->player.pos.y) * SCALE_MAP + ray_start.y
+		};
 
-        // Clipper le rayon pour qu'il reste dans le cadre de la minimap
-        //if (ray_end.x < 0) ray_end.x = 0;
-        //if (ray_end.y < 0) ray_end.y = 0;
-        if (ray_end.x > minimap_size) ray_end.x = minimap_size;
-        if (ray_end.y > minimap_size) ray_end.y = minimap_size;
+		// Clipper le rayon pour qu'il reste dans le cadre de la minimap
+		//if (ray_end.x < 0) ray_end.x = 0;
+		//if (ray_end.y < 0) ray_end.y = 0;
+		if (ray_end.x > minimap_size) ray_end.x = minimap_size;
+		if (ray_end.y > minimap_size) ray_end.y = minimap_size;
 
-        // Dessiner le rayon clippé
-        draw_line(data, ray_start.x, ray_start.y, ray_end.x, ray_end.y);
-        i++;
-    }
+		// Dessiner le rayon clippé
+		draw_line(data, ray_start.x, ray_start.y, ray_end.x, ray_end.y);
+		i++;
+	}
 }
 
 static void	render_rays(t_data *data)
@@ -153,7 +153,6 @@ static void	render_rays(t_data *data)
 		i++;
 	}
 }
-
 
 void	render_textures_and_colors(t_data *data)
 {
@@ -180,14 +179,20 @@ void	render_textures_and_colors(t_data *data)
 
 int	render(t_data *data)
 {
+	float scale = 1.0f;
+	int torch_size = data->torch[data->current_frame]->width * scale;
+	int margin = 0;
+	int screen_x = W_WIDTH - torch_size - margin;
+	int screen_y = W_HEIGHT - torch_size - margin;
+
 	if (!data->mlx_win)
 		return (1);
 	init_rays(data);
 	move_player(data, &data->player);
 	render_background(&data->img, 0x000000);
-	//render_walls(data);
 	render_textures_and_colors(data);
 	render_map(data);
+	update_and_draw_torch(data, screen_x, screen_y, scale);
 	draw_rect(&data->img, (t_rect){
 			(data->player.pos.x - 5) * SCALE_MAP,
 			(data->player.pos.y - 5 ) * SCALE_MAP,

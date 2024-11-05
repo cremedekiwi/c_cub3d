@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 15:08:55 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:54:11 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:18:04 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -36,7 +36,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1)
 	{
 		img_pix_put(&data->img, x0,y0, 0xFFFFFF);
 		if (x0 == x1 && y0 == y1) break;
-        e2 = 2 * err;
+		e2 = 2 * err;
 		if (e2 >= dy)
 		{
 			err += dy;
@@ -47,7 +47,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1)
 			err += dx;
 			y0 += sy;
 		} // e_xy + e_y < 0
-    }
+	}
 }
 
 int draw_rect(t_img *img, t_rect rect)
