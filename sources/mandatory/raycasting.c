@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:44:51 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:55:44 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ static void	find_horizontal_intersection(t_data *data, t_ray *ray)
 	inc.x = CUBE_SIZE / tan(ray->angle);
 	if ((ray->rayfacingleft && inc.x > 0) || (!ray->rayfacingleft && inc.x < 0))
 		inc.x *= -1;
+	/*
 	while (curr.x >= 0 && curr.x <= W_WIDTH
 		&& curr.y >= 0 && curr.y <= W_HEIGHT)
+	*/
+	while (curr.x >= 0 && curr.x <= data->map.cols * CUBE_SIZE
+		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{
 		if (is_wall_at(data, curr.x, curr.y - ray->rayfacingup))
 		{
@@ -67,8 +71,8 @@ static void	find_vertical_intersection(t_data *data, t_ray *ray)
 	inc.y = CUBE_SIZE * tan(ray->angle);
 	if ((ray->rayfacingup && inc.y > 0) || (!ray->rayfacingup && inc.y < 0))
 		inc.y *= -1;
-	while (curr.x >= 0 && curr.x <= W_WIDTH
-		&& curr.y >= 0 && curr.y <= W_HEIGHT)
+	while (curr.x >= 0 && curr.x <= data->map.cols * CUBE_SIZE
+		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{
 		if (is_wall_at(data, curr.x - ray->rayfacingleft, curr.y))
 		{

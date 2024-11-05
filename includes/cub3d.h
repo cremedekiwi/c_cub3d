@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 17:12:03 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:53:26 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define FOV (60 * (PI / 180))
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
-# define SCALE_MAP 0.3
+# define SCALE_MAP 0.2
 # define VELOCITY 1
 # define ANGULAR_VELOCITY (PI / 200)
 # define MLX_PTR "Error: mlx_init failed\n"

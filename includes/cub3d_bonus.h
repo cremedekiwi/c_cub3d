@@ -6,12 +6,12 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/04 16:43:19 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:53:41 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-#define CUB3D_H
+#ifndef CUB3D_BONUS_H
+#define CUB3D_BONUS_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -30,7 +30,7 @@
 # define FOV (60 * (PI / 180))
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
-# define SCALE_MAP 0.3
+# define SCALE_MAP 0.2
 # define VELOCITY 1
 # define ANGULAR_VELOCITY (PI / 200)
 # define MLX_PTR "Error: mlx_init failed\n"
@@ -48,6 +48,7 @@
 # define EMPTY_FILE "Error, empty file\n"
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
+# define MAP_CHAR "Error, file does contain invalid char\n"
 
 typedef struct s_vec2
 {
@@ -156,6 +157,7 @@ void	draw_line(t_data *data, int x0, int y0, int x1, int y1);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
 
+int	cursor_motion(int x, int y, t_data *data);
 /* map */
 int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
