@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:00:58 by jarumuga          #+#    #+#             */
-/*   Updated: 2024/11/05 18:38:59 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 00:00:51 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int screen_y, float scale)
 	t_img			*current_torch;
 	t_torch_info	info;
 
-	delay_interval = 60;
+	delay_interval = 15;
 	data->frame_counter++;
 	if (data->frame_counter >= delay_interval)
 	{
