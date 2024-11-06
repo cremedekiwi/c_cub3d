@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:01:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:31 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:01:23 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	init_minimap(t_data *data, t_minimap *minimap)
 	minimap->player.y = data->player.pos.y / CUBE_SIZE;
 }
 
-bool	is_in_minimap(t_minimap *minimap, t_vec2 v)
+bool	is_wall_minimap(t_data *data, t_minimap *minimap, t_vec2 sc, t_vec2 map)
 {
-	return (v.x >= 0 && v.x < minimap->size && v.y >= 0 && v.y < minimap->size);
+	return (sc.x >= 0 && sc.x < minimap->size
+		&& sc.y >= 0 && sc.y < minimap->size
+		&& data->map.m[(int)map.y][(int)map.x] == '1');
 }
 
 void	draw_minimap_wall(t_data *data, t_minimap *minimap)
@@ -44,8 +46,7 @@ void	draw_minimap_wall(t_data *data, t_minimap *minimap)
 			{
 				screen = vec2_add(minimap->center,
 						vec2_scale(curr, CUBE_SIZE * SCALE_MAP));
-				if (is_in_minimap(minimap, screen)
-					&& data->map.m[(int)map.y][(int)map.x] == '1')
+				if (is_wall_minimap(data, minimap, screen, map))
 				{
 					draw_rect(&data->img, (t_rect){screen.x, screen.y,
 						CUBE_SIZE * SCALE_MAP, CUBE_SIZE * SCALE_MAP,
@@ -56,27 +57,42 @@ void	draw_minimap_wall(t_data *data, t_minimap *minimap)
 	}
 }
 
+static void	render_rays(t_data *data, t_minimap *minimap)
+{
+	int		i;
+	float	distance;
+	t_vec2	hit;
+	t_vec2	dist;
+
+	i = -1;
+	while (++i < NUM_RAYS)
+	{
+		hit.x = minimap->center.x
+			+ (data->rays[i].hit.x - data->player.pos.x) * SCALE_MAP;
+		hit.y = minimap->center.y
+			+ (data->rays[i].hit.y - data->player.pos.y) * SCALE_MAP;
+		dist.x = hit.x - minimap->center.x;
+		dist.y = hit.y - minimap->center.y;
+		distance = sqrt(dist.x * dist.x + dist.y * dist.y);
+		if (distance > 0 && distance > minimap->radius * CUBE_SIZE * SCALE_MAP)
+		{
+			hit.x = minimap->center.x
+				+ dist.x * (minimap->radius * CUBE_SIZE * SCALE_MAP) / distance;
+			hit.y = minimap->center.y
+				+ dist.y * (minimap->radius * CUBE_SIZE * SCALE_MAP) / distance;
+		}
+		draw_line(data, minimap->center, hit);
+	}
+}
+
 void	draw_player_and_rays(t_data *data, t_minimap *minimap)
 {
-    draw_rect(&data->img, (t_rect){
+	render_rays(data, minimap);
+	draw_rect(&data->img, (t_rect){
 		minimap->center.x,
-        minimap->center.y,
-        10 * SCALE_MAP,
-        10 * SCALE_MAP,
-        0xFFFFFFFF
-    });
-
-}
-void	render_rays(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < NUM_RAYS)
-	{
-		t_vec2 scale1 = vec2_scale(data->player.pos, SCALE_MAP);
-		t_vec2 scale2 = vec2_scale(data->rays[i].hit, SCALE_MAP);
-		draw_line(data,scale1.x, scale1.y, scale2.x, scale2.y);
-		i++;
-	}
+		minimap->center.y,
+		CUBE_SIZE / 2 * SCALE_MAP,
+		CUBE_SIZE / 2 * SCALE_MAP,
+		0xFFFFFFFF
+	});
 }

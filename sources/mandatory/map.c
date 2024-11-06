@@ -6,13 +6,12 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:15:55 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:59:43 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
 #include "../../includes/cub3d.h"
+
 void	get_player_position(t_data *data)
 {
 	int	i;

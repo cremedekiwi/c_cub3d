@@ -9,7 +9,7 @@ MLX = $(MLX_PATH)libmlx.a
 
 INCLUDES = -I./includes -I$(LIB_PATH) -I$(MLX_PATH)
 
-SRC_PATH = mandatory/sources/
+SRC_PATH = sources/mandatory/
 SRC_FILES = main.c \
 			input.c \
 			render.c \
