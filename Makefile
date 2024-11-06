@@ -9,7 +9,7 @@ MLX = $(MLX_PATH)libmlx.a
 
 INCLUDES = -I./includes -I$(LIB_PATH) -I$(MLX_PATH)
 
-SRC_PATH = sources/
+SRC_PATH = mandatory/sources/
 SRC_FILES = main.c \
 			input.c \
 			render.c \
@@ -22,6 +22,8 @@ SRC_FILES = main.c \
 			exit.c \
 			parse.c \
 			map.c \
+			map_utils.c \
+			minimap.c \
 			raycasting.c
 SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
 
