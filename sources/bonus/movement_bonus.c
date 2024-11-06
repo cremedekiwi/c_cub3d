@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 14:18:31 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 14:44:38 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void	move_player(t_data *data, t_player *player)
 	valid_move(data, newpos);
 }
 
+// recenter the mouse only when it moves too far within the window
+	// x < W_WIDTH / 4
+		// checks if the cursor’s x pos is in the leftmost 25% of the window
+	// x > 3 * W_WIDTH / 4
+		// checks if the cursor’s x pos is in the rightmost 25% of the window
 int	cursor_motion(int x, int y, t_data *data)
 {
 	static int	prev_x = W_WIDTH / 2;
@@ -58,6 +63,12 @@ int	cursor_motion(int x, int y, t_data *data)
 		data->player.angle -= 0.02;
 	else if (x > prev_x)
 		data->player.angle += 0.02;
-	prev_x = x;
+	if (x < W_WIDTH / 4 || x > 3 * W_WIDTH / 4)
+	{
+		mlx_mouse_move(data->mlx_ptr, data->mlx_win, W_WIDTH / 2, W_HEIGHT / 2);
+		prev_x = W_WIDTH / 2;
+	}
+	else
+		prev_x = x;
 	return (0);
 }
