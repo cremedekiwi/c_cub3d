@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:19 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/06 23:09:22 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	get_color(t_data *data, char *str, char c, int fd)
 		data->color_ceiling = (r << 16) | (g << 8) | b;
 	else if (c == 'F')
 		data->color_floor = (r << 16) | (g << 8) | b;
+	printf("%d %d %d %c\n", r, g, b, c);
 }
 
 int	is_last_argument(t_data *data)
@@ -77,6 +78,16 @@ void	get_map(t_data *data, char *str, int fd)
 	get_map_dimension(data, tab);
 	copy_tab(data, tab);
 	get_player_position(data);
+	int i = 0;
+	if (data->map.m)
+	{
+		while (i < data->map.rows)
+		{
+			printf("%s\n", data->map.m[i]);
+			i++;
+		}
+	}
+	verify_arguments(data);
 }
 
 void	parse_map(t_data *data, char *str)
@@ -95,7 +106,7 @@ void	parse_map(t_data *data, char *str)
 	{
 		if (is_texture(line))
 			get_texture(data, line, fd);
-		else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
+		else if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 			get_color(data, line, line[0], fd);
 		else if (is_map(line) && is_last_argument(data))
 			return (get_map(data, line, fd));

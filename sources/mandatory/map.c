@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 19:59:43 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:50:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_player_position(t_data *data)
 	int	j;
 
 	i = -1;
-	while (data->map.m[++i])
+	while (++i < data->map.rows && data->map.m[++i])
 	{
 		j = -1;
 		while (data->map.m[i][++j])
@@ -49,7 +49,7 @@ static void	remove_cardinal(t_data *data)
 
 	i = -1;
 	c = 0;
-	while (data->map.m[++i])
+	while (++i < data->map.rows)
 	{
 		j = -1;
 		while (data->map.m[i][++j])
@@ -95,7 +95,7 @@ static void	is_map_open(t_data *data)
 	if (!m)
 		exit_error(data, MALLOC);
 	i = -1;
-	while (data->map.m[++i])
+	while (++i < data->map.rows)
 		m[i] = ft_strdup(data->map.m[i]);
 	m[i] = 0;
 	i = -1;
@@ -120,7 +120,7 @@ void	verify_arguments(t_data *data)
 	i = 0;
 	whitespace = 1;
 	is_map_open(data);
-	while (data->map.m && data->map.m[i])
+	while (data->map.m && i < data->map.rows)
 	{
 		j = 0;
 		while (data->map.m[i][j])
