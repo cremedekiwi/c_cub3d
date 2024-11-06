@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 00:00:06 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:10:53 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void	determine_texture(t_data *data, int ray_index, t_render *render_info);
 void	render_wall(t_data *data, int ray_index, t_render render_info);
 
 /* torch */
+void	load_torch_texture(t_data *data);
 void	update_and_draw_torch(t_data *data, int screen_x, int screen_y, \
 float scale);
 

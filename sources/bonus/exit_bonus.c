@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:22 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 14:18:09 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:22:17 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,31 @@ static void	free_texture(void *mlx_ptr, t_img *img)
 	{
 		if (img->path)
 			free(img->path);
-		mlx_destroy_image(mlx_ptr, img->mlx_img);
+		if (img->mlx_img)
+			mlx_destroy_image(mlx_ptr, img->mlx_img);
 		free(img);
 	}
 }
 
 static void	free_ressources(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	if (data->mlx_ptr)
 	{
 		free_texture(data->mlx_ptr, data->text_no);
 		free_texture(data->mlx_ptr, data->text_ea);
 		free_texture(data->mlx_ptr, data->text_we);
 		free_texture(data->mlx_ptr, data->text_so);
+		if (data->torch)
+		{
+			while (i < TORCH_FRAMES)
+			{
+				free_texture(data->mlx_ptr, data->torch[i]);
+				i++;
+			}
+		}
 		if (data->img.mlx_img)
 			mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
 		if (data->mlx_win)

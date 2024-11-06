@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:00:58 by jarumuga          #+#    #+#             */
-/*   Updated: 2024/11/06 00:00:51 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:30:06 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ void	load_torch_texture(t_data *data)
 		ft_snprintf(filename, sizeof(filename), "./textures/torch_%02d.xpm", i);
 		data->torch[i] = malloc(sizeof(t_img));
 		if (!data->torch[i])
-			exit(1);
+			exit_error(data, "Malloc failed.\n");
+		data->torch[i]->path = NULL;
 		data->torch[i]->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, \
 		filename, &data->torch[i]->width, &data->torch[i]->height);
 		if (!data->torch[i]->mlx_img)
 		{
 			printf("Error loading torch texture frame %d.\n", i);
-			exit(1);
+			exit_error(data, "Failed to load torch texture.\n");
 		}
 		data->torch[i]->addr = mlx_get_data_addr(data->torch[i]->mlx_img, \
 		&data->torch[i]->bpp, &data->torch[i]->line_len, \
