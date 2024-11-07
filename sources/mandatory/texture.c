@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:09 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:48:28 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	is_texture(char *str)
 	int					len;
 
 	i = 0;
+	while (*str == ' ' || *str == '\t')
+		str++;
 	while (i < 8)
 	{
 		if (ft_strlen(str) > ft_strlen(tok[i])

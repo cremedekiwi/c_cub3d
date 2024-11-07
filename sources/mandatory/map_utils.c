@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:18:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:43 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:07:21 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	is_empty_line(char *str)
 void	get_map_dimension(t_data *data, char **tab)
 {
 	int	i;
+	int	j;
 	int	max_length;
 	int	curr_length;
 

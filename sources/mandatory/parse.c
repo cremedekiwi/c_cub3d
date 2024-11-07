@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 23:09:22 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:56:09 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	get_color(t_data *data, char *str, char c, int fd)
 		data->color_ceiling = (r << 16) | (g << 8) | b;
 	else if (c == 'F')
 		data->color_floor = (r << 16) | (g << 8) | b;
-	printf("%d %d %d %c\n", r, g, b, c);
 }
 
 int	is_last_argument(t_data *data)
@@ -63,21 +62,21 @@ void	get_map(t_data *data, char *str, int fd)
 	char	**tab;
 
 	tab = 0;
-	while (str)
+	while (str && !is_empty_line(str))
 	{
-		if (is_empty_line(str))
-			return (free(str), free_tab(tab), close(fd),
-				exit_error(data, EMPTY_LINE));
 		tab = tab_append(tab, str);
 		if (!tab)
 			return (free(str), close(fd), exit_game(data));
 		free(str);
 		str = get_next_line(fd);
 	}
+	if (str)
+		free(str);
 	close(fd);
 	get_map_dimension(data, tab);
 	copy_tab(data, tab);
 	get_player_position(data);
+	/*
 	int i = 0;
 	if (data->map.m)
 	{
@@ -87,6 +86,9 @@ void	get_map(t_data *data, char *str, int fd)
 			i++;
 		}
 	}
+	printf("%f\n", data->player.pos.x);
+	printf("%f\n", data->player.pos.y);
+	*/
 	verify_arguments(data);
 }
 
@@ -108,7 +110,7 @@ void	parse_map(t_data *data, char *str)
 			get_texture(data, line, fd);
 		else if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
 			get_color(data, line, line[0], fd);
-		else if (is_map(line) && is_last_argument(data))
+		else if (is_last_argument(data) && !is_empty_line(line))
 			return (get_map(data, line, fd));
 		free(line);
 		line = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:01:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 14:01:01 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:16:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_minimap(t_data *data, t_minimap *minimap)
 {
 	minimap->radius = 20;
+	//minimap->pos = (t_vec2){}
 	minimap->size = (minimap->radius * 2 + 1) * CUBE_SIZE * SCALE_MAP;
 	minimap->center = (t_vec2){minimap->size / 2, minimap->size / 2};
 	minimap->player.x = data->player.pos.x / CUBE_SIZE;
