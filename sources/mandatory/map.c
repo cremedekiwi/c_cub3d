@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 22:50:11 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:11:14 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_player_position(t_data *data)
 	int	j;
 
 	i = -1;
-	while (++i < data->map.rows && data->map.m[++i])
+	while (++i < data->map.rows && data->map.m[i])
 	{
 		j = -1;
 		while (data->map.m[i][++j])

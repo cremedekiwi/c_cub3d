@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 14:50:47 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:13:01 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	is_texture(char *str)
 	int					len;
 
 	i = 0;
+	while (*str == ' ' || *str == '\t')
+		str++;
 	while (i < 8)
 	{
 		if (ft_strlen(str) > ft_strlen(tok[i])

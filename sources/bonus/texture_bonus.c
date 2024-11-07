@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 14:49:19 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:17:06 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "../../includes/cub3d.h"
 
 /**
  * @brief checks if a given string str is a valid texture identifier
@@ -29,6 +29,8 @@ int	is_texture(char *str)
 	int					len;
 
 	i = 0;
+	while (*str == ' ' || *str == '\t')
+		str++;
 	while (i < 8)
 	{
 		if (ft_strlen(str) > ft_strlen(tok[i])

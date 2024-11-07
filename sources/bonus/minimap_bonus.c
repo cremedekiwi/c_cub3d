@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:01:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 13:53:07 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:16:28 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_minimap(t_data *data, t_minimap *minimap)
 {
 	minimap->radius = 20;
+	//minimap->pos = (t_vec2){}
 	minimap->size = (minimap->radius * 2 + 1) * CUBE_SIZE * SCALE_MAP;
 	minimap->center = (t_vec2){minimap->size / 2, minimap->size / 2};
 	minimap->player.x = data->player.pos.x / CUBE_SIZE;
@@ -25,7 +26,7 @@ bool	is_wall_minimap(t_data *data, t_minimap *minimap, t_vec2 sc, t_vec2 map)
 {
 	return (sc.x >= 0 && sc.x < minimap->size
 		&& sc.y >= 0 && sc.y < minimap->size
-		&& data->map.m[(int)map.y][(int)map.x] == '1');
+		&& data->map.m[(int)map.y][(int)map.x] == '0');
 }
 
 void	draw_minimap_wall(t_data *data, t_minimap *minimap)
@@ -67,10 +68,10 @@ static void	render_rays(t_data *data, t_minimap *minimap)
 	i = -1;
 	while (++i < NUM_RAYS)
 	{
-		hit.x = minimap->center.x
-			+ (data->rays[i].hit.x - data->player.pos.x) * SCALE_MAP;
-		hit.y = minimap->center.y
-			+ (data->rays[i].hit.y - data->player.pos.y) * SCALE_MAP;
+		hit.x = minimap->center.x + (data->rays[i].hit.x
+				- data->player.pos.x + CUBE_SIZE / 2) * SCALE_MAP;
+		hit.y = minimap->center.y + (data->rays[i].hit.y
+				- data->player.pos.y + CUBE_SIZE / 2) * SCALE_MAP;
 		dist.x = hit.x - minimap->center.x;
 		dist.y = hit.y - minimap->center.y;
 		distance = sqrt(dist.x * dist.x + dist.y * dist.y);
