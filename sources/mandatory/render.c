@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:12:18 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:20:10 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	render(t_data *data)
 	move_player(data, &data->player);
 	render_background(&data->img, 0x000000);
 	render_textures_and_colors(data);
-	draw_minimap(data);
+	// draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 		data->img.mlx_img, 0, 0);
 	return (0);

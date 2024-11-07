@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 11:58:27 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:20:57 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,3 @@ int	cursor_motion(int x, int y, t_data *data)
 	}
 	return (0);
 }
-/*
-int    cursor_motion(int x, int y, t_data *data)
-{
-    static int    prev_x = W_WIDTH / 2;
-
-    mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
-    if (x < prev_x)
-        data->player.angle -= 0.02;
-    else if (x > prev_x)
-        data->player.angle += 0.02;
-    if (x < W_WIDTH / 4 || x > 3 * W_WIDTH / 4)
-    {
-        mlx_mouse_move(data->mlx_ptr, data->mlx_win, W_WIDTH / 2, W_HEIGHT / 2);
-        prev_x = W_WIDTH / 2;
-    }
-    else
-        prev_x = x;
-    return (0);
-}
-*/
