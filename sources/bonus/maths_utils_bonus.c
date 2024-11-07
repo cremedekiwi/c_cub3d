@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:29:37 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 14:18:26 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:52:38 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,14 @@ t_vec2	vec2_scale(t_vec2 v, float scale)
 
 	res.x = v.x * scale;
 	res.y = v.y * scale;
+	return (res);
+}
+
+t_vec2	vec2_add(t_vec2 v1, t_vec2 v2)
+{
+	t_vec2	res;
+
+	res.x = v1.x + v2.x;
+	res.y = v1.y + v2.y;
 	return (res);
 }

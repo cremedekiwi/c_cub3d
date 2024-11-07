@@ -3,4 +3,8 @@ cub3d
 cub3d_bonus
 libft/libft.a
 libft/obj/
+minilibx-linux/libmlx.a
+minilibx-linux/libmlx_Linux.a
+minilibx-linux/test/main.o
+minilibx-linux/test/mlx-test
 obj/

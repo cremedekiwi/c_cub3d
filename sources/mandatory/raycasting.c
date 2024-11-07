@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:55:44 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:17:15 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void	get_ray_orientation(t_ray *ray, float ray_angle)
 {
@@ -38,10 +38,6 @@ static void	find_horizontal_intersection(t_data *data, t_ray *ray)
 	inc.x = CUBE_SIZE / tan(ray->angle);
 	if ((ray->rayfacingleft && inc.x > 0) || (!ray->rayfacingleft && inc.x < 0))
 		inc.x *= -1;
-	/*
-	while (curr.x >= 0 && curr.x <= W_WIDTH
-		&& curr.y >= 0 && curr.y <= W_HEIGHT)
-	*/
 	while (curr.x >= 0 && curr.x <= data->map.cols * CUBE_SIZE
 		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{

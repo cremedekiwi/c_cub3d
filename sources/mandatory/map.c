@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:55:11 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:50:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-int	is_map(char *str)
-{
-	int	count1;
-	int	count0;
-
-	count0 = 0;
-	count1 = 0;
-	while (*str)
-	{
-		if (!(*str == '1' || *str == '0' || *str == ' ' || *str == '\n'))
-			return (0);
-		if (*str == '1')
-			count1++;
-		if (*str == '0')
-			count0++;
-		str++;
-	}
-	return (count1 || count0);
-}
-
-void	get_map_dimension(t_data *data, char **tab)
-{
-	int	i;
-	int	max_length;
-	int	curr_length;
-
-	i = 0;
-	max_length = INT_MIN;
-	while (tab && tab[i])
-	{
-		curr_length = ft_strlen(tab[i]);
-		if (curr_length > max_length)
-			max_length = curr_length;
-		i++;
-	}
-	data->map.rows = i;
-	//data->map.cols = max_length - 1;
-	data->map.cols = max_length; //- 1;
-}
+#include "../../includes/cub3d.h"
 
 void	get_player_position(t_data *data)
 {
@@ -58,7 +18,7 @@ void	get_player_position(t_data *data)
 	int	j;
 
 	i = -1;
-	while (data->map.m[++i])
+	while (++i < data->map.rows && data->map.m[++i])
 	{
 		j = -1;
 		while (data->map.m[i][++j])
@@ -81,7 +41,7 @@ void	get_player_position(t_data *data)
 	}
 }
 
-void	remove_cardinal(t_data *data)
+static void	remove_cardinal(t_data *data)
 {
 	int	i;
 	int	j;
@@ -89,7 +49,7 @@ void	remove_cardinal(t_data *data)
 
 	i = -1;
 	c = 0;
-	while (data->map.m[++i])
+	while (++i < data->map.rows)
 	{
 		j = -1;
 		while (data->map.m[i][++j])
@@ -108,7 +68,7 @@ void	remove_cardinal(t_data *data)
 		exit_error(data, CARDINAL);
 }
 
-int	flood_fill(t_data *data, char **m, int i, int j)
+static int	flood_fill(t_data *data, char **m, int i, int j)
 {
 	if (i < 0 || j < 0 || j == data->map.cols || i == data->map.rows)
 		return (false);
@@ -125,7 +85,7 @@ int	flood_fill(t_data *data, char **m, int i, int j)
 		|| flood_fill(data, m, i, j - 1));
 }
 
-void	is_map_open(t_data *data)
+static void	is_map_open(t_data *data)
 {
 	int		i;
 	int		j;
@@ -135,7 +95,7 @@ void	is_map_open(t_data *data)
 	if (!m)
 		exit_error(data, MALLOC);
 	i = -1;
-	while (data->map.m[++i])
+	while (++i < data->map.rows)
 		m[i] = ft_strdup(data->map.m[i]);
 	m[i] = 0;
 	i = -1;
@@ -151,31 +111,6 @@ void	is_map_open(t_data *data)
 	free_tab(m);
 }
 
-int invalid_char(char c)
-{
-	if (c == ' ' || c == '\n' || c == '1' || c == '0'
-		|| c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		return (0);
-	return (1);
-}
-
-int is_empty_line(char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-	if (*str == '\n')
-		return (1);
-	while (*str)
-	{
-		if (!(*str == ' ' || *str == '\t' || *str == '\v'))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-
 void	verify_arguments(t_data *data)
 {
 	int		i;
@@ -185,7 +120,7 @@ void	verify_arguments(t_data *data)
 	i = 0;
 	whitespace = 1;
 	is_map_open(data);
-	while (data->map.m && data->map.m[i])
+	while (data->map.m && i < data->map.rows)
 	{
 		j = 0;
 		while (data->map.m[i][j])
@@ -202,31 +137,4 @@ void	verify_arguments(t_data *data)
 		i++;
 	}
 	remove_cardinal(data);
-	i = 0;
-	while (data->map.m && data->map.m[i])
-	{
-		printf("%s\n", data->map.m[i]);
-		i++;
-	}
-}
-
-void	get_map(t_data *data, char *str, int fd)
-{
-	char	**tab;
-
-	tab = 0;
-	//while (str && !is_empty_line(str))
-	while (str)
-	{
-		tab = tab_append(tab, str);
-		if (!tab)
-			return (free(str), close(fd), exit_game(data));
-		free(str);
-		str = get_next_line(fd);
-	}
-	close(fd);
-	get_map_dimension(data, tab);
-	copy_tab(data, tab);
-	get_player_position(data);
-	verify_arguments(data);
 }

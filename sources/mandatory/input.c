@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:25 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:54:54 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:39:04 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	handle_keyrelease(int keysym, t_data *data)
 {

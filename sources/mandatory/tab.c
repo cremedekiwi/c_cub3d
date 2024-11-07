@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tab.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
+/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:12:33 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 13:56:33 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:16:46 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	free_tab(char **tab)
 {

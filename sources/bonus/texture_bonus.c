@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 17:37:47 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:56:08 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 	int					i;
 
 	i = 0;
-	while (i < 9)
+	while (i < 8)
 	{
 		if (!ft_strncmp(tok[i], str, ft_strlen(tok[i])))
 		{
@@ -58,12 +58,6 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 				data->text_we = img;
 			else if (i < 8)
 				data->text_ea = img;
-			else if (i == 8)
-			{
-				int frame_index = ft_atoi(str + ft_strlen(tok[i]));
-				if (frame_index >= 0 && frame_index < TORCH_FRAMES)
-					data->torch[frame_index] = img;
-			}
 			return ;
 		}
 		i++;
@@ -72,8 +66,6 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 
 void	create_texture(t_data *data, char *str, int fd, t_img *img)
 {
-	if (ft_strncmp(str, "TORCH", 5) == 0)
-		img->path = "torch_4.xpm";
 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
 			img->path,
 			&img->width,

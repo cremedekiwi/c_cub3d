@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/05 14:18:40 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:54:14 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ static void	find_horizontal_intersection(t_data *data, t_ray *ray)
 	inc.x = CUBE_SIZE / tan(ray->angle);
 	if ((ray->rayfacingleft && inc.x > 0) || (!ray->rayfacingleft && inc.x < 0))
 		inc.x *= -1;
-	/*
-	while (curr.x >= 0 && curr.x <= W_WIDTH
-		&& curr.y >= 0 && curr.y <= W_HEIGHT)
-	*/
 	while (curr.x >= 0 && curr.x <= data->map.cols * CUBE_SIZE
 		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{
