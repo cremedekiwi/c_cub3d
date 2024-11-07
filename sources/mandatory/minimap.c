@@ -6,7 +6,7 @@
 /*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 17:01:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 14:16:11 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:58:33 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_wall_minimap(t_data *data, t_minimap *minimap, t_vec2 sc, t_vec2 map)
 {
 	return (sc.x >= 0 && sc.x < minimap->size
 		&& sc.y >= 0 && sc.y < minimap->size
-		&& data->map.m[(int)map.y][(int)map.x] == '1');
+		&& data->map.m[(int)map.y][(int)map.x] == '0');
 }
 
 void	draw_minimap_wall(t_data *data, t_minimap *minimap)
