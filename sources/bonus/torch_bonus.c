@@ -6,12 +6,24 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:00:58 by jarumuga          #+#    #+#             */
-/*   Updated: 2024/11/06 16:30:06 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:04:29 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
+/**
+ * @brief assembles a str in the following format: ./textures/torch_<num>.xpm
+ * @brief 1. copy the prefix
+ * @brief 2. add the numeric part
+ * @brief 3. copy the suffix
+ * @brief 4. null terminator
+ * @param buffer character array where the formatted string will be stored
+ * @param size maximum size of buffer, preventing overflow
+ * @param format define the format of the output
+ * @param num integer that will be appended as part of the filename
+ * @return len, which represents the number of characters written to buffer
+ */
 int	ft_snprintf(char *buffer, size_t size, const char *format, int num)
 {
 	int			len;
@@ -33,6 +45,16 @@ int	ft_snprintf(char *buffer, size_t size, const char *format, int num)
 	return (len);
 }
 
+/**
+ * @brief loads a series of torch texture
+ * @brief 1. loop through frames
+ * @brief 2. generate filename
+ * @brief 3. allocate memory for each texture
+ * @brief 4. load image file
+ * @brief 5. retrieve image data
+ * @brief 6. init animation frame counters
+ * @param data pointer to a structure
+ */
 void	load_torch_texture(t_data *data)
 {
 	char	filename[30];
@@ -61,6 +83,14 @@ void	load_torch_texture(t_data *data)
 	data->frame_counter = 0;
 }
 
+/**
+ * @brief draw a scaled-up version of a pixel in an image
+ * @brief 1. outer loop (rows)
+ * @brief 2. inner loop (columns)
+ * @brief 3. draw each pixel in the block
+ * @param img pointer to an image structure
+ * @param info structure containing details needed to draw the scaled pixel
+ */
 void	draw_scaled_pixel(t_img *img, t_torch_info info)
 {
 	int	i;
@@ -79,6 +109,17 @@ void	draw_scaled_pixel(t_img *img, t_torch_info info)
 	}
 }
 
+/**
+ * @brief designed to draw a scaled-up version of a torch
+ * @brief 1. loop through texture pixels
+ * @brief 2. retrieve the pixel color
+ * @brief 3. transparency check
+ * @brief 4. set scaled pixel properties
+ * @brief 5. draw the scaled pixel
+ * @param img pointer to an image structure
+ * @param current_torch pointer to the current torch texture image
+ * @param info structure containing details needed to draw the scaled pixel
+ */
 void	draw_torch_texture(t_img *img, t_img *current_torch, t_torch_info *info)
 {
 	int	x;
@@ -106,6 +147,19 @@ void	draw_torch_texture(t_img *img, t_img *current_torch, t_torch_info *info)
 	}
 }
 
+/**
+ * @brief responsible for updating the animation frame of a "torch" texture
+ * @brief 1. fram delay config
+ * @brief 2. frame counter update
+ * @brief 3. select the current frame
+ * @brief 4. error checking
+ * @brief 5. set drawing info
+ * @brief 6. draw the torch texture
+ * @param data pointer to a structure
+ * @param screen_x x-coordinate on the screen where the torch should be drawn
+ * @param screen_y y--coordinate on the screen where the torch should be drawn
+ * @param scale scale factor used to draw the torch texture (large or small)
+ */
 void	update_and_draw_torch(t_data *data, int screen_x, \
 int screen_y, float scale)
 {
