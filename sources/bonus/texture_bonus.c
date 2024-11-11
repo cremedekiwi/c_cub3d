@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:17:06 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:52:17 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 /**
  * @brief checks if a given string str is a valid texture identifier
@@ -23,7 +23,7 @@ int	is_texture(char *str)
 {
 	static const char	*tok[] = {
 		"NO", "N", "SO", "S", "WE", "W",
-		"EA", "E", 0
+		"EA", "E", "DO", "D", 0
 	};
 	int					i;
 	int					len;
@@ -31,7 +31,7 @@ int	is_texture(char *str)
 	i = 0;
 	while (*str == ' ' || *str == '\t')
 		str++;
-	while (i < 8)
+	while (i < 10)
 	{
 		if (ft_strlen(str) > ft_strlen(tok[i])
 			&& !ft_strncmp(tok[i], str, ft_strlen(tok[i])))
@@ -59,12 +59,12 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 {
 	static const char	*tok[] = {
 		"NO", "N", "SO", "S", "WE", "W",
-		"EA", "E", 0
+		"EA", "E", "DO", "D", 0
 	};
 	int					i;
 
 	i = 0;
-	while (i < 8)
+	while (i < 10)
 	{
 		if (!ft_strncmp(tok[i], str, ft_strlen(tok[i])))
 		{
@@ -76,6 +76,8 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 				data->text_we = img;
 			else if (i < 8)
 				data->text_ea = img;
+			else
+				data->text_door = img;
 			return ;
 		}
 		i++;

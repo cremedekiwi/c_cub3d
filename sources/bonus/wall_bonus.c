@@ -6,66 +6,55 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 13:56:19 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:20:32 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-int	is_wall_at(t_data *data, float x, float y)
+static void	set_vertical_texture(t_data *data, int ray_index, \
+t_render *render_info, int is_door)
 {
-	int	idx;
-	int	idy;
-
-	if (x < 0 || x >= data->map.cols * CUBE_SIZE
-		|| y < 0 || y >= data->map.rows * CUBE_SIZE)
-		return (1);
-	idy = floor(y / CUBE_SIZE);
-	idx = floor(x / CUBE_SIZE);
-	return (data->map.m[idy][idx] == '1');
+	if (is_door)
+		render_info->texture = data->text_door;
+	else if (data->rays[ray_index].rayfacingleft)
+		render_info->texture = data->text_ea;
+	else
+		render_info->texture = data->text_we;
+	render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
+	render_info->texture->width));
 }
 
-void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
+static void	set_horizontal_texture(t_data *data, int ray_index, \
+t_render *render_info, int is_door)
 {
-	wall->height = (CUBE_SIZE / ray->distance) * proj_dist;
-	wall->start = (W_HEIGHT / 2) - (wall->height / 2);
-	wall->end = (W_HEIGHT / 2) + (wall->height / 2);
-	if (wall->start < 0)
-		wall->start = 0;
-	if (wall->end > W_HEIGHT)
-		wall->end = W_HEIGHT;
-}
-
-void	calculate_wall_height(t_wall *wall, float corrected_distance)
-{
-	float	proj_dist;
-
-	proj_dist = (W_WIDTH / 2) / tan(FOV / 2);
-	wall->height = (CUBE_SIZE / corrected_distance) * proj_dist;
-	wall->start = (W_HEIGHT / 2) - (wall->height / 2);
-	wall->end = wall->start + wall->height;
+	if (is_door)
+		render_info->texture = data->text_door;
+	else if (data->rays[ray_index].rayfacingup)
+		render_info->texture = data->text_so;
+	else
+		render_info->texture = data->text_no;
+	render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
+	render_info->texture->width));
 }
 
 void	determine_texture(t_data *data, int ray_index, t_render *render_info)
 {
+	float	hit_x;
+	float	hit_y;
+	int		map_x;
+	int		map_y;
+	int		is_door;
+
+	hit_x = data->rays[ray_index].hit.x;
+	hit_y = data->rays[ray_index].hit.y;
+	map_x = (int)floor(hit_x / CUBE_SIZE);
+	map_y = (int)floor(hit_y / CUBE_SIZE);
+	is_door = is_door_hit(data, map_x, map_y);
 	if (data->rays[ray_index].hitvertical)
-	{
-		if (data->rays[ray_index].rayfacingleft)
-			render_info->texture = data->text_we;
-		else
-			render_info->texture = data->text_ea;
-		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
-		render_info->texture->width));
-	}
+		set_vertical_texture(data, ray_index, render_info, is_door);
 	else
-	{
-		if (data->rays[ray_index].rayfacingup)
-			render_info->texture = data->text_no;
-		else
-			render_info->texture = data->text_so;
-		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
-		render_info->texture->width));
-	}
+		set_horizontal_texture(data, ray_index, render_info, is_door);
 }
 
 void	render_wall(t_data *data, int ray_index, t_render render_info)

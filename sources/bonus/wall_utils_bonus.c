@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall.c                                             :+:      :+:    :+:   */
+/*   wall_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 16:42:46 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:21:39 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	is_wall_at(t_data *data, float x, float y)
 {
@@ -22,7 +22,14 @@ int	is_wall_at(t_data *data, float x, float y)
 		return (1);
 	idy = floor(y / CUBE_SIZE);
 	idx = floor(x / CUBE_SIZE);
-	return (data->map.m[idy][idx] == '1');
+	return (data->map.m[idy][idx] == '1' || data->map.m[idy][idx] == 'D');
+}
+
+int	is_door_hit(t_data *data, int map_x, int map_y)
+{
+	return ((data->map.m[map_y - 1][map_x] == 'D') ||
+			(data->map.m[map_y][map_x - 1] == 'D') ||
+			(data->map.m[map_y][map_x] == 'D'));
 }
 
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)
@@ -44,44 +51,4 @@ void	calculate_wall_height(t_wall *wall, float corrected_distance)
 	wall->height = (CUBE_SIZE / corrected_distance) * proj_dist;
 	wall->start = (W_HEIGHT / 2) - (wall->height / 2);
 	wall->end = wall->start + wall->height;
-}
-
-void	determine_texture(t_data *data, int ray_index, t_render *render_info)
-{
-	if (data->rays[ray_index].hitvertical)
-	{
-		if (data->rays[ray_index].rayfacingleft)
-			render_info->texture = data->text_ea;
-		else
-			render_info->texture = data->text_we;
-		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
-		render_info->texture->width));
-	}
-	else
-	{
-		if (data->rays[ray_index].rayfacingup)
-			render_info->texture = data->text_so;
-		else
-			render_info->texture = data->text_no;
-		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
-		render_info->texture->width));
-	}
-}
-
-void	render_wall(t_data *data, int ray_index, t_render render_info)
-{
-	int		j;
-	char	*pixel;
-	int		tex_y;
-
-	j = render_info.wall.start;
-	while (j < render_info.wall.end && j < W_HEIGHT)
-	{
-		tex_y = (int)(((j - render_info.wall.start) * \
-		render_info.texture->height) / render_info.wall.height);
-		pixel = render_info.texture->addr + (tex_y * \
-		render_info.texture->line_len + render_info.tex_x \
-		* (render_info.texture->bpp / 8));
-		img_pix_put(&data->img, ray_index, j++, *(unsigned int *)pixel);
-	}
 }

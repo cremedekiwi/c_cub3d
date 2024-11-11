@@ -38,6 +38,7 @@ BONUS_FILES = main_bonus.c \
 			draw_bonus.c \
 			texture_bonus.c \
 			wall_bonus.c \
+			wall_utils_bonus.c \
 			tab_bonus.c \
 			exit_bonus.c \
 			parse_bonus.c \

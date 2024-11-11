@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:18:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:16:08 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:50:40 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	is_map(char *str)
 int	invalid_char(char c)
 {
 	if (c == ' ' || c == '\n' || c == '1' || c == '0'
-		|| c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		|| c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'D')
 		return (0);
 	return (1);
 }
