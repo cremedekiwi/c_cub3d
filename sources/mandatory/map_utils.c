@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:18:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:11:32 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:27:30 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	is_map(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:00:58 by jarumuga          #+#    #+#             */
-/*   Updated: 2024/11/07 16:04:29 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:29:32 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 /**
  * @brief assembles a str in the following format: ./textures/torch_<num>.xpm

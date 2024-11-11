@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 13:53:44 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:30:49 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 static void	valid_move(t_data *data, t_vec2 newpos)
 {
@@ -78,4 +78,3 @@ int	cursor_motion(int x, int y, t_data *data)
 	}
 	return (0);
 }
-

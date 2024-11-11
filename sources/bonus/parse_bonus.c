@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:16:47 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:31:00 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 void	get_color(t_data *data, char *str, char c, int fd)
 {
@@ -57,6 +57,19 @@ void	check_extension(t_data *data, char *str)
 		exit_error(data, FILEFORMAT);
 }
 
+/*
+int i = 0;
+if (data->map.m)
+{
+	while (i < data->map.rows)
+	{
+		printf("%s\n", data->map.m[i]);
+		i++;
+	}
+}
+printf("%f\n", data->player.pos.x);
+printf("%f\n", data->player.pos.y);
+*/
 void	get_map(t_data *data, char *str, int fd)
 {
 	char	**tab;
@@ -76,19 +89,6 @@ void	get_map(t_data *data, char *str, int fd)
 	get_map_dimension(data, tab);
 	copy_tab(data, tab);
 	get_player_position(data);
-	/*
-	int i = 0;
-	if (data->map.m)
-	{
-		while (i < data->map.rows)
-		{
-			printf("%s\n", data->map.m[i]);
-			i++;
-		}
-	}
-	printf("%f\n", data->player.pos.x);
-	printf("%f\n", data->player.pos.y);
-	*/
 	verify_arguments(data);
 }
 

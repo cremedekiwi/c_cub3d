@@ -6,11 +6,11 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 16:17:54 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:32:23 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
+#include "cub3d_bonus.h"
 
 static void	render_background(t_img *img, int color)
 {
@@ -55,18 +55,25 @@ static void	draw_minimap(t_data *data)
 	t_minimap	minimap;
 
 	init_minimap(data, &minimap);
-	draw_rect(&data->img, (t_rect){0, 0, minimap.size, minimap.size , 0x000000});
+	draw_rect(&data->img, (t_rect){0, 0, minimap.size, \
+	minimap.size, 0x000000});
 	draw_minimap_wall(data, &minimap);
 	draw_player_and_rays(data, &minimap);
 }
 
 int	render(t_data *data)
 {
-	float scale = 1.0f;
-	int torch_size = data->torch[data->current_frame]->width * scale;
-	int margin = 0;
-	int screen_x = W_WIDTH - torch_size - margin;
-	int screen_y = W_HEIGHT - torch_size - margin;
+	float	scale;
+	int		torch_size;
+	int		margin;
+	int		screen_x;
+	int		screen_y;
+
+	scale = 1.0f;
+	torch_size = data->torch[data->current_frame]->width * scale;
+	margin = 0;
+	screen_x = W_WIDTH - torch_size - margin;
+	screen_y = W_HEIGHT - torch_size - margin;
 	if (!data->mlx_win)
 		return (1);
 	init_rays(data);
