@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 18:44:57 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:14:12 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,6 @@ void	check_extension(t_data *data, char *str)
 		exit_error(data, FILEFORMAT);
 }
 
-/*
-int i = 0;
-if (data->map.m)
-{
-	while (i < data->map.rows)
-	{
-		printf("%s\n", data->map.m[i]);
-		i++;
-	}
-}
-printf("%f\n", data->player.pos.x);
-printf("%f\n", data->player.pos.y);
-*/
-// printf("%s", str);
 void	get_map(t_data *data, char *str, int fd)
 {
 	char	**tab;
@@ -90,6 +76,7 @@ void	get_map(t_data *data, char *str, int fd)
 	get_map_dimension(data, tab);
 	copy_tab(data, tab);
 	get_player_position(data);
+	check_doors(data);
 	verify_arguments(data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 20:40:40 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:05:45 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
 # define MAP_CHAR "Error, file does contain invalid char\n"
+# define DOOR_LOCATION "Error, invalid door location\n"
 # define TORCH_FRAMES 11
 
 typedef struct s_vec2
@@ -253,6 +254,7 @@ void	update_and_draw_torch(t_data *data, int screen_x, int screen_y, \
 float scale);
 
 /* door */
+void	check_doors(t_data *data);
 void	init_door_map(t_map *map);
 void	free_door_map(char **door_map, int rows);
 void	toggle_door(t_map *map, t_player *player);
