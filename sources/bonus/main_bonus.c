@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 16:52:25 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:58:43 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_values(t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	data->mlx_ptr = 0;
 	data->mlx_win = 0;
 	data->text_no = 0;
@@ -24,14 +24,12 @@ static void	init_values(t_data *data)
 	data->text_we = 0;
 	data->text_ea = 0;
 	data->text_door = 0;
-	while (i < TORCH_FRAMES)
-	{
+	while (++i < TORCH_FRAMES)
 		data->torch[i] = NULL;
-		i++;
-	}
 	data->color_floor = INT_MIN;
 	data->color_ceiling = INT_MIN;
 	data->map.m = 0;
+	data->map.door_map = 0;
 	data->map.rows = 0;
 	data->map.cols = 0;
 	data->player.pos.x = -1;
@@ -59,6 +57,12 @@ static void	init_game(t_data *data)
 	load_torch_texture(data);
 }
 
+// int i = 0;
+// while (data.map.m[i])
+// {
+// 	printf("%s\n", data.map.m[i]);
+// 	i++;
+// }
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -67,18 +71,13 @@ int	main(int argc, char **argv)
 		return ((void)ft_putstr_fd(ARGS, 2), 1);
 	init_game(&data);
 	parse_map(&data, argv[1]);
-	int i = 0;
-	while (data.map.m[i])
-	{
-		printf("%s\n", data.map.m[i]);
-		i++;
-	}
+	init_door_map(&data.map);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.mlx_win, KeyRelease, KeyReleaseMask, \
 	&handle_keyrelease, &data);
 	mlx_hook(data.mlx_win, MotionNotify, PointerMotionMask, \
 	&cursor_motion, &data);
-	//mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
+	mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
 	mlx_loop(data.mlx_ptr);
 }

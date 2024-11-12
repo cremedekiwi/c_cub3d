@@ -46,7 +46,8 @@ BONUS_FILES = main_bonus.c \
 			map_utils_bonus.c \
 			minimap_bonus.c \
 			raycasting_bonus.c \
-			torch_bonus.c
+			torch_bonus.c \
+			door_bonus.c
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
 BONUS_SRCS = $(addprefix $(BONUS_PATH), $(BONUS_FILES))

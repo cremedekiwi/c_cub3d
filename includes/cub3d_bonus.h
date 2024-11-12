@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 18:07:54 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:40:40 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_img
 typedef struct s_map
 {
 	char	**m;
+	char	**door_map;
 	int		rows;
 	int		cols;
 }	t_map;
@@ -160,7 +161,7 @@ typedef struct s_data
 	t_img		*text_we;
 	t_img		*text_ea;
 	t_img		*text_door;
-	t_img 		*torch[TORCH_FRAMES];
+	t_img		*torch[TORCH_FRAMES];
 	t_map		map;
 	t_player	player;
 	t_ray		rays[W_WIDTH];
@@ -250,5 +251,10 @@ void	draw_line(t_data *data, t_vec2 v0, t_vec2 v1);
 void	load_torch_texture(t_data *data);
 void	update_and_draw_torch(t_data *data, int screen_x, int screen_y, \
 float scale);
+
+/* door */
+void	init_door_map(t_map *map);
+void	free_door_map(char **door_map, int rows);
+void	toggle_door(t_map *map, t_player *player);
 
 #endif

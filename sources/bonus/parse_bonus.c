@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 17:01:51 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:44:57 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ if (data->map.m)
 printf("%f\n", data->player.pos.x);
 printf("%f\n", data->player.pos.y);
 */
+// printf("%s", str);
 void	get_map(t_data *data, char *str, int fd)
 {
 	char	**tab;
@@ -77,7 +78,6 @@ void	get_map(t_data *data, char *str, int fd)
 	tab = 0;
 	while (str && !is_empty_line(str))
 	{
-		printf("%s", str);
 		tab = tab_append(tab, str);
 		if (!tab)
 			return (free(str), close(fd), exit_game(data));

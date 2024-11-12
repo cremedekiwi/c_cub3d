@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:25 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:28:43 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:33:49 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	handle_keyrelease(int keysym, t_data *data)
 {
+	if (keysym == XK_e)
+		toggle_door(&data->map, &data->player);
 	if (keysym == XK_a)
 		data->player.sideway = 0;
 	if (keysym == XK_d)

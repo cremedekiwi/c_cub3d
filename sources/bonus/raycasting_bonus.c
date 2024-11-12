@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 18:05:18 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:14:51 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	get_ray_orientation(t_ray *ray, float ray_angle)
 	ray->hit.x = 0;
 	ray->hit.y = 0;
 	ray->hitvertical = false;
+	ray->door = false;
 }
 
 static void	find_horizontal_intersection(t_data *data, t_ray *ray)
@@ -42,8 +43,9 @@ static void	find_horizontal_intersection(t_data *data, t_ray *ray)
 		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{
 		if (is_wall_at(data, curr.x, curr.y - ray->rayfacingup))
-			return (ray->door = is_door_hit(data, curr.x, curr.y - ray->rayfacingup),
-					ray->hit = curr, ray->distance = distance(data->player.pos, curr), (void)0);
+			return (ray->door = is_door_hit(data, curr.x, \
+			curr.y - ray->rayfacingup), ray->hit = curr, \
+			ray->distance = distance(data->player.pos, curr), (void)0);
 		curr.x += inc.x;
 		curr.y += inc.y;
 	}
@@ -68,8 +70,9 @@ static void	find_vertical_intersection(t_data *data, t_ray *ray)
 		&& curr.y >= 0 && curr.y <= data->map.rows * CUBE_SIZE)
 	{
 		if (is_wall_at(data, curr.x - ray->rayfacingleft, curr.y))
-			return (ray->door = is_door_hit(data, curr.x - ray->rayfacingleft, curr.y),
-					ray->hit = curr, ray->distance = distance(data->player.pos, curr), (void)0);
+			return (ray->door = is_door_hit(data, \
+			curr.x - ray->rayfacingleft, curr.y), ray->hit = curr, \
+			ray->distance = distance(data->player.pos, curr), (void)0);
 		curr.x += inc.x;
 		curr.y += inc.y;
 	}

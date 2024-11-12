@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:22 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:28:40 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:03:14 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,10 @@ void	exit_error(t_data *data, char *msg)
 void	exit_game(t_data *data)
 {
 	free_ressources(data);
+	if (data->map.door_map)
+	{
+		free_door_map(data->map.door_map, data->map.rows);
+		data->map.door_map = NULL;
+	}
 	exit(0);
 }
