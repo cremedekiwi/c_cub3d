@@ -6,55 +6,36 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:29:35 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:05:50 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	set_vertical_texture(t_data *data, int ray_index, \
-t_render *render_info, int is_door)
-{
-	if (is_door)
-		render_info->texture = data->text_door;
-	else if (data->rays[ray_index].rayfacingleft)
-		render_info->texture = data->text_ea;
-	else
-		render_info->texture = data->text_we;
-	render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
-	render_info->texture->width));
-}
-
-static void	set_horizontal_texture(t_data *data, int ray_index, \
-t_render *render_info, int is_door)
-{
-	if (is_door)
-		render_info->texture = data->text_door;
-	else if (data->rays[ray_index].rayfacingup)
-		render_info->texture = data->text_so;
-	else
-		render_info->texture = data->text_no;
-	render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
-	render_info->texture->width));
-}
-
 void	determine_texture(t_data *data, int ray_index, t_render *render_info)
 {
-	float	hit_x;
-	float	hit_y;
-	int		map_x;
-	int		map_y;
-	int		is_door;
-
-	hit_x = data->rays[ray_index].hit.x;
-	hit_y = data->rays[ray_index].hit.y;
-	map_x = (int)floor(hit_x / CUBE_SIZE);
-	map_y = (int)floor(hit_y / CUBE_SIZE);
-	is_door = is_door_hit(data, map_x, map_y);
 	if (data->rays[ray_index].hitvertical)
-		set_vertical_texture(data, ray_index, render_info, is_door);
+	{
+		if (data->rays[ray_index].door)
+			render_info->texture = data->text_door;
+		else if (data->rays[ray_index].rayfacingleft)
+			render_info->texture = data->text_ea;
+		else
+			render_info->texture = data->text_we;
+		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
+		render_info->texture->width));
+	}
 	else
-		set_horizontal_texture(data, ray_index, render_info, is_door);
+	{
+		if (data->rays[ray_index].door)
+			render_info->texture = data->text_door;
+		else if (data->rays[ray_index].rayfacingup)
+			render_info->texture = data->text_so;
+		else
+			render_info->texture = data->text_no;
+		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
+		render_info->texture->width));
+	}
 }
 
 void	render_wall(t_data *data, int ray_index, t_render render_info)

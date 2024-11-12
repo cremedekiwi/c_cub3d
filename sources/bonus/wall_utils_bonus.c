@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:29:39 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:07:22 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,17 @@ int	is_wall_at(t_data *data, float x, float y)
 	return (data->map.m[idy][idx] == '1' || data->map.m[idy][idx] == 'D');
 }
 
-int	is_door_hit(t_data *data, int map_x, int map_y)
+int	is_door_hit(t_data *data, float x, float y)
 {
-	return ((data->map.m[map_y - 1][map_x] == 'D') ||
-			(data->map.m[map_y][map_x - 1] == 'D') ||
-			(data->map.m[map_y][map_x] == 'D'));
+	int	idx;
+	int	idy;
+
+	if (x < 0 || x >= data->map.cols * CUBE_SIZE
+		|| y < 0 || y >= data->map.rows * CUBE_SIZE)
+		return (1);
+	idy = floor(y / CUBE_SIZE);
+	idx = floor(x / CUBE_SIZE);
+	return (data->map.m[idy][idx] == 'D');
 }
 
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist)

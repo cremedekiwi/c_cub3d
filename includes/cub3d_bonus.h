@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:21:56 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:07:54 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct s_ray
 	bool	hitvertical;
 	bool	rayfacingup;
 	bool	rayfacingleft;
+	bool	door;
 	int		value;
 }	t_ray;
 
@@ -223,7 +224,7 @@ void	parse_map(t_data *data, char *str);
 void	determine_texture(t_data *data, int ray_index, t_render *render_info);
 void	render_wall(t_data *data, int ray_index, t_render render_info);
 int		is_wall_at(t_data *data, float x, float y);
-int		is_door_hit(t_data *data, int map_x, int map_y);
+int		is_door_hit(t_data *data, float x, float y);
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist);
 void	calculate_wall_height(t_wall *wall, float corrected_distance);
 
