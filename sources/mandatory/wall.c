@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:05:00 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 19:17:06 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:27:03 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 int	is_wall_at(t_data *data, float x, float y)
 {
@@ -51,18 +51,18 @@ void	determine_texture(t_data *data, int ray_index, t_render *render_info)
 	if (data->rays[ray_index].hitvertical)
 	{
 		if (data->rays[ray_index].rayfacingleft)
-			render_info->texture = data->text_we;
-		else
 			render_info->texture = data->text_ea;
+		else
+			render_info->texture = data->text_we;
 		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.y, \
 		render_info->texture->width));
 	}
 	else
 	{
 		if (data->rays[ray_index].rayfacingup)
-			render_info->texture = data->text_no;
-		else
 			render_info->texture = data->text_so;
+		else
+			render_info->texture = data->text_no;
 		render_info->tex_x = (int)(fmod(data->rays[ray_index].hit.x, \
 		render_info->texture->width));
 	}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:27 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:27:44 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 static void	valid_move(t_data *data, t_vec2 newpos)
 {
@@ -52,32 +52,24 @@ void	move_player(t_data *data, t_player *player)
 int	cursor_motion(int x, int y, t_data *data)
 {
 	static int	prev_x = W_WIDTH / 2;
+	static int	prev_y = W_HEIGHT / 2;
 
 	mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
 	if (x < prev_x)
 		data->player.angle -= 0.02;
 	else if (x > prev_x)
 		data->player.angle += 0.02;
-	prev_x = x;
+	if (x < W_WIDTH / 4 || x > 3 * W_WIDTH / 4 \
+	|| y < W_HEIGHT / 4 || y > 3 * W_HEIGHT / 4)
+	{
+		mlx_mouse_move(data->mlx_ptr, data->mlx_win, W_WIDTH / 2, W_HEIGHT / 2);
+		prev_x = W_WIDTH / 2;
+		prev_y = W_HEIGHT / 2;
+	}
+	else
+	{
+		prev_x = x;
+		prev_y = y;
+	}
 	return (0);
 }
-/*
-int    cursor_motion(int x, int y, t_data *data)
-{
-    static int    prev_x = W_WIDTH / 2;
-
-    mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
-    if (x < prev_x)
-        data->player.angle -= 0.02;
-    else if (x > prev_x)
-        data->player.angle += 0.02;
-    if (x < W_WIDTH / 4 || x > 3 * W_WIDTH / 4)
-    {
-        mlx_mouse_move(data->mlx_ptr, data->mlx_win, W_WIDTH / 2, W_HEIGHT / 2);
-        prev_x = W_WIDTH / 2;
-    }
-    else
-        prev_x = x;
-    return (0);
-}
-*/

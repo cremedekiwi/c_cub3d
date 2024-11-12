@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 15:48:28 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:28:01 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
+/**
+ * @brief checks if a given string str is a valid texture identifier
+ * @brief 1. loop through tokens
+ * @brief 2. string comparison (length check ; prefix match)
+ * @param str represents the string being evaluated
+ * @return boolean
+ */
 int	is_texture(char *str)
 {
 	static const char	*tok[] = {
@@ -39,6 +46,15 @@ int	is_texture(char *str)
 	return (0);
 }
 
+/**
+ * @brief assigns a given texture image
+ * @brief 1. loop through texture identifiers
+ * @brief 2. check for prefix match
+ * @brief 3. assign the texture
+ * @param data pointer to a structure
+ * @param str string that indicates the direction of the texture
+ * @param img pointer to an image structure
+ */
 void	assign_texture(t_data *data, char *str, t_img *img)
 {
 	static const char	*tok[] = {
@@ -66,6 +82,17 @@ void	assign_texture(t_data *data, char *str, t_img *img)
 	}
 }
 
+/**
+ * @brief initializes and assigns a texture image
+ * @brief 1. load the texture image
+ * @brief 2. error handling
+ * @brief 3. get image data address
+ * @brief 4. assign the texture
+ * @param data pointer to a structure
+ * @param str string that indicates the direction of the texture
+ * @param fd fd associated with a file being read
+ * @param img pointer to an image structure
+ */
 void	create_texture(t_data *data, char *str, int fd, t_img *img)
 {
 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr,
@@ -84,6 +111,17 @@ void	create_texture(t_data *data, char *str, int fd, t_img *img)
 	assign_texture(data, str, img);
 }
 
+/**
+ * @brief responsible for extracting a texture file path from a given string
+ * @brief 1. initialize and allocate t_img structure
+ * @brief 2. error handling for malloc
+ * @brief 3. extract the file path from str
+ * @brief 4. duplicate the file path into img->path
+ * @param data pointer to a structure
+ * @param str string that indicates the direction of the texture
+ * @param fd fd associated with a file being read
+ * @param img pointer to an image structure
+ */
 void	get_texture(t_data *data, char *str, int fd)
 {
 	t_img	*img;

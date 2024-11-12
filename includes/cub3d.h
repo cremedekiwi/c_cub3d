@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/06 20:59:49 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:57:04 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define CUBE_SIZE 32
 # define FOV 1.04719 /* 60 * PI / 180 */
 # define PI 3.14159265
-# define NUM_RAYS W_WIDTH 
+# define NUM_RAYS W_WIDTH
 # define SCALE_MAP 0.2
 # define VELOCITY 1
 # define ANGULAR_VELOCITY 0.0157 /* PI / 200 */
@@ -212,4 +212,4 @@ void	draw_minimap_wall(t_data *data, t_minimap *minimap);
 void	draw_player_and_rays(t_data *data, t_minimap *minimap);
 void	draw_line(t_data *data, t_vec2 v0, t_vec2 v1);
 
-#endif 
+#endif
