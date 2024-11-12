@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:34:25 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 19:33:49 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:01:12 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	handle_keyrelease(int keysym, t_data *data)
 {
+	if (keysym == XK_Shift_L)
+		data->velocity = 1;
 	if (keysym == XK_e)
 		toggle_door(&data->map, &data->player);
 	if (keysym == XK_a)
@@ -33,6 +35,8 @@ int	handle_keyrelease(int keysym, t_data *data)
 
 int	handle_keypress(int keysym, t_data *data)
 {
+	if (keysym == XK_Shift_L)
+		data->velocity = 5;
 	if (keysym == XK_Escape)
 		exit_game(data);
 	if (keysym == XK_a)

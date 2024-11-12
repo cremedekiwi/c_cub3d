@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 23:15:25 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:59:18 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	init_values(t_data *data)
 	data->player.forward = 0;
 	data->player.sideway = 0;
 	data->player.angle = 0;
+	data->velocity = 1;
 }
 
 static void	init_game(t_data *data)

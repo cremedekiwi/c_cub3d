@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 23:07:05 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:03:34 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ void	move_player(t_data *data, t_player *player)
 		player->angle += player->delta_angle * ANGULAR_VELOCITY;
 	if (player->forward != 0)
 	{
-		newpos.x += cos(player->angle) * player->forward * VELOCITY;
-		newpos.y += sin(player->angle) * player->forward * VELOCITY;
+		newpos.x += cos(player->angle) * player->forward * data->velocity;
+		newpos.y += sin(player->angle) * player->forward * data->velocity;
 	}
 	else if (player->sideway != 0)
 	{
-		newpos.x += cos(player->angle + player->sideway * PI / 2) * VELOCITY;
-		newpos.y += sin(player->angle + player->sideway * PI / 2) * VELOCITY;
+		newpos.x += cos(player->angle + player->sideway * PI / 2) \
+		* data->velocity;
+		newpos.y += sin(player->angle + player->sideway * PI / 2) \
+		* data->velocity;
 	}
 	valid_move(data, newpos);
 }

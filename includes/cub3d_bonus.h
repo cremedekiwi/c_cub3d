@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 23:14:49 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:02:22 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define PI 3.14159265
 # define NUM_RAYS W_WIDTH
 # define SCALE_MAP 0.2
-# define VELOCITY 1
 # define ANGULAR_VELOCITY 0.0157 /* PI / 200 */
 # define MLX_PTR "Error: mlx_init failed\n"
 # define MLX_WIN "Error: mlx_new_window() failed\n"
@@ -170,6 +169,7 @@ typedef struct s_data
 	int			color_floor;
 	int			current_frame;
 	int			frame_counter;
+	int 		velocity;
 }	t_data;
 
 typedef struct s_rect
