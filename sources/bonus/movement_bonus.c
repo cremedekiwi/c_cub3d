@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:02 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:36:39 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:07:05 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	move_player(t_data *data, t_player *player)
 int	cursor_motion(int x, int y, t_data *data)
 {
 	static int	prev_x = W_WIDTH / 2;
-	// static int	prev_y = W_HEIGHT / 2;
 
 	mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
 	if (x < prev_x)
@@ -68,12 +67,10 @@ int	cursor_motion(int x, int y, t_data *data)
 	{
 		mlx_mouse_move(data->mlx_ptr, data->mlx_win, W_WIDTH / 2, W_HEIGHT / 2);
 		prev_x = W_WIDTH / 2;
-		// prev_y = W_HEIGHT / 2;
 	}
 	else
 	{
 		prev_x = x;
-		// prev_y = y;
 	}
 	return (0);
 }

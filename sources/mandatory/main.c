@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:41:38 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:14:10 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int	main(int argc, char **argv)
 	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.mlx_win, KeyRelease, \
 	KeyReleaseMask, &handle_keyrelease, &data);
-	// mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
+	mlx_hook(data.mlx_win, DestroyNotify, 0, &handle_exit, &data);
 	mlx_loop(data.mlx_ptr);
 }

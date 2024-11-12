@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:05:45 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:14:49 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ void	move_player(t_data *data, t_player *player);
 int		ft_abs(int x);
 float	angle_normalize(float angle);
 float	distance(t_vec2 v1, t_vec2 v2);
-void	exit_game(t_data *data);
 void	init_rays(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 int		draw_rect(t_img *img, t_rect rect);
@@ -215,6 +214,7 @@ void	get_texture(t_data *data, char *str, int fd);
 /* exit */
 void	exit_error(t_data *data, char *msg);
 void	exit_game(t_data *data);
+int		handle_exit(t_data *data);
 
 t_vec2	vec2_add(t_vec2 v1, t_vec2 v2);
 t_vec2	vec2_sub(t_vec2 v1, t_vec2 v2);

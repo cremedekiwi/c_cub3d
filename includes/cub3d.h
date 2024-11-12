@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/07 11:57:04 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:16:43 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,50 +161,56 @@ void	move_player(t_data *data, t_player *player);
 int		ft_abs(int x);
 float	angle_normalize(float angle);
 float	distance(t_vec2 v1, t_vec2 v2);
-void	exit_game(t_data *data);
 int		is_wall_at(t_data *data, float x, float y);
 void	init_rays(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 int		draw_rect(t_img *img, t_rect rect);
 t_vec2	vec2_scale(t_vec2 v, float scale);
 
-int		cursor_motion(int x, int y, t_data *data);
 /* map */
 int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
 void	get_player_position(t_data *data);
 void	get_map(t_data *data, char *str, int fd);
+
 /* tab */
 void	free_tab(char **tab);
 char	**tab_append(char **tab, char *str);
 void	copy_tab(t_data *data, char **tab);
+
 /* texture */
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);
 void	get_texture(t_data *data, char *str, int fd);
+
 /* exit */
 void	exit_error(t_data *data, char *msg);
 void	exit_game(t_data *data);
+int		handle_exit(t_data *data);
 
 t_vec2	vec2_add(t_vec2 v1, t_vec2 v2);
 t_vec2	vec2_sub(t_vec2 v1, t_vec2 v2);
 
 /* parse */
 void	parse_map(t_data *data, char *str);
+
 /* wall */
 void	get_wall_parameters(t_wall *wall, t_ray *ray, float proj_dist);
 void	calculate_wall_height(t_wall *wall, float corrected_distance);
 void	determine_texture(t_data *data, int ray_index, t_render *render_info);
 void	render_wall(t_data *data, int ray_index, t_render render_info);
+
 /* map utils */
 int		is_map(char *str);
 int		invalid_char(char c);
 int		ft_isspace(char c);
 int		is_empty_line(char *str);
 void	get_map_dimension(t_data *data, char **tab);
+
 /* map */
 void	get_player_position(t_data *data);
 void	verify_arguments(t_data *data);
+
 /* minimap */
 void	init_minimap(t_data *data, t_minimap *minimap);
 bool	is_in_minimap(t_minimap *minimap, t_vec2 v);

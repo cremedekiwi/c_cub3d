@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:22 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:27:16 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 23:18:42 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,10 @@ void	exit_game(t_data *data)
 {
 	free_ressources(data);
 	exit(0);
+}
+
+int	handle_exit(t_data *data)
+{
+	exit_game(data);
+	return (0);
 }
