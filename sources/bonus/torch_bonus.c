@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:00:58 by jarumuga          #+#    #+#             */
-/*   Updated: 2024/11/11 18:29:32 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:40:32 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param num integer that will be appended as part of the filename
  * @return len, which represents the number of characters written to buffer
  */
-int	ft_snprintf(char *buffer, size_t size, const char *format, int num)
+int	ft_snprintf(char *buffer, int size, int num)
 {
 	int			len;
 	const char	*prefix;
@@ -63,7 +63,7 @@ void	load_torch_texture(t_data *data)
 	i = -1;
 	while (++i < TORCH_FRAMES)
 	{
-		ft_snprintf(filename, sizeof(filename), "./textures/torch_%02d.xpm", i);
+		ft_snprintf(filename, sizeof(filename), i);
 		data->torch[i] = malloc(sizeof(t_img));
 		if (!data->torch[i])
 			exit_error(data, "Malloc failed.\n");

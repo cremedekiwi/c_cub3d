@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:12:24 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:29:57 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	main(int argc, char **argv)
 	&handle_keyrelease, &data);
 	mlx_hook(data.mlx_win, MotionNotify, PointerMotionMask, \
 	&cursor_motion, &data);
-	mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
+	// mlx_hook(data.mlx_win, DestroyNotify, 0, &exit_game, &data);
 	mlx_loop(data.mlx_ptr);
 }

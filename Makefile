@@ -1,8 +1,8 @@
 NAME = cub3d
 BONUS_NAME = cub3d_bonus
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -w -g3
-LINK = -lX11 -lXext -lXfixes -lm
+CFLAGS = -Wall -Werror -Wextra -g3
+LINK = -lX11 -lXext -lm
 LIBFT_PATH = libft/
 LIBFT = $(LIBFT_PATH)libft.a
 MLX_PATH = minilibx-linux/

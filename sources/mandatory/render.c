@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:27:54 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 22:46:29 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,6 @@ static void	render_textures_and_colors(t_data *data)
 			img_pix_put(&data->img, i, j++, data->color_floor);
 		i++;
 	}
-}
-
-static void	draw_minimap(t_data *data)
-{
-	t_minimap	minimap;
-
-	init_minimap(data, &minimap);
-	draw_rect(&data->img, (t_rect){0, 0, minimap.size, \
-	minimap.size, 0x000000});
-	draw_minimap_wall(data, &minimap);
-	draw_player_and_rays(data, &minimap);
 }
 
 int	render(t_data *data)
