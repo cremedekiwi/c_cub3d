@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:12:33 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:29:24 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:45:25 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	copy_tab(t_data *data, char **tab)
 		j = -1;
 		while (tab[i][++j] && tab[i][j] != '\n')
 			new_tab[i][j] = tab[i][j];
-		while (j < data->map.cols)
+		while (j < data->map.cols - 1)
 			new_tab[i][j++] = ' ';
 		new_tab[i][j] = 0;
 	}

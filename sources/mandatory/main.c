@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:35:26 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 16:26:01 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:44:39 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,11 @@ int	main(int argc, char **argv)
 	init_game(&data);
 	parse_map(&data, argv[1]);
 	int i = 0;
-	if (data.map.m)
+	while (data.map.m[i])
 	{
-		while (i < data.map.rows)
-		{
-			printf("%s\n", data.map.m[i]);
-			i++;
-		}
+		printf("%s\n", data.map.m[i]);
+		i++;
 	}
-	//printf("%f\n", data->map.rows);
-	//printf("%f\n", data->map.cols);
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.mlx_win, KeyRelease, \
