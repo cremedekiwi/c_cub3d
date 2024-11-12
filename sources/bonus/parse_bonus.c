@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 17:01:51 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:29:16 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,26 @@ void	check_extension(t_data *data, char *str)
 		exit_error(data, FILEFORMAT);
 }
 
-/*
-int i = 0;
-if (data->map.m)
+void	check_doors(t_data *data)
 {
-	while (i < data->map.rows)
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < data->map.rows)
 	{
-		printf("%s\n", data->map.m[i]);
-		i++;
+		j = -1;
+		while (++j < data->map.cols)
+		{
+			if (data->map.m[i][j] == 'D' &&
+			   ((i == 0 || j == 0 || i == data->map.rows - 1 || j == data->map.cols - 1)
+				|| !((data->map.m[i][j - 1] == '1' && data->map.m[i][j + 1] == '1')
+				|| (data->map.m[i - 1][j] == '1' && data->map.m[i + 1][j] == '1'))))
+			   exit_error(data, DOOR_LOCATION);
+		}
 	}
 }
-printf("%f\n", data->player.pos.x);
-printf("%f\n", data->player.pos.y);
-*/
+
 void	get_map(t_data *data, char *str, int fd)
 {
 	char	**tab;
@@ -90,6 +97,7 @@ void	get_map(t_data *data, char *str, int fd)
 	get_map_dimension(data, tab);
 	copy_tab(data, tab);
 	get_player_position(data);
+	check_doors(data);
 	verify_arguments(data);
 }
 

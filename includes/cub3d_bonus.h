@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 18:07:54 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:18:11 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # define MAP "Error, file contains an open map\n"
 # define MAP_ARGS "Error, file does not contain every arguments\n"
 # define MAP_CHAR "Error, file does contain invalid char\n"
+# define DOOR_LOCATION "Error, invalid door location\n"
 # define TORCH_FRAMES 11
 
 typedef struct s_vec2
