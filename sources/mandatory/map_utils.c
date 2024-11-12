@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:18:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:27:30 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:27:25 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void	get_map_dimension(t_data *data, char **tab)
 		i++;
 	}
 	data->map.rows = i;
-	data->map.cols = max_length;
+	data->map.cols = max_length - 1;
 }
