@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:31:00 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:01:51 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	get_map(t_data *data, char *str, int fd)
 	tab = 0;
 	while (str && !is_empty_line(str))
 	{
+		printf("%s", str);
 		tab = tab_append(tab, str);
 		if (!tab)
 			return (free(str), close(fd), exit_game(data));
