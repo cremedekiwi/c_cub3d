@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/13 00:02:22 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:07:09 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ typedef struct s_data
 	int			color_floor;
 	int			current_frame;
 	int			frame_counter;
-	int 		velocity;
+	int			velocity;
 }	t_data;
 
 typedef struct s_rect
