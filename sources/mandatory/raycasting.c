@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:40:09 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/19 13:44:49 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:48:12 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	get_ray_orientation(t_ray *ray, float ray_angle)
 	ray->angle = angle_normalize(ray_angle);
 	ray->rayfacingup = (ray->angle >= PI && ray->angle <= 2 * PI);
 	ray->rayfacingleft = (ray->angle >= PI / 2 && ray->angle <= 1.5 * PI);
-	ray->distance = (float)INT_MAX;
+	ray->distance = FLT_MAX;
 	ray->hit.x = 0;
 	ray->hit.y = 0;
 	ray->hitvertical = false;

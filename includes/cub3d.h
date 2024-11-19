@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 23:16:43 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:48:34 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <X11/keysym.h>
 # include <stdint.h>
 # include <limits.h>
+# include <float.h>
 
 # define W_WIDTH 1200
 # define W_HEIGHT 800
