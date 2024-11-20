@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:28:52 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:05:50 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,6 @@ void	get_player_position(t_data *data)
 				data->player.angle = 0;
 		}
 	}
-}
-
-static void	remove_cardinal(t_data *data)
-{
-	int	i;
-	int	j;
-	int	c;
-
-	i = -1;
-	c = 0;
-	while (++i < data->map.rows)
-	{
-		j = -1;
-		while (data->map.m[i][++j])
-		{
-			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
-				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
-			{
-				data->map.m[i][j] = '0';
-				c++;
-			}
-			else if (data->map.m[i][j] == ' ')
-				data->map.m[i][j] = '1';
-		}
-	}
-	if (c != 1)
-		exit_error(data, CARDINAL);
 }
 
 static int	flood_fill(t_data *data, char **m, int i, int j)
@@ -117,7 +90,6 @@ void	verify_arguments(t_data *data)
 	int		j;
 	bool	whitespace;
 
-	i = 0;
 	whitespace = 1;
 	is_map_open(data);
 	while (data->map.m && i < data->map.rows)

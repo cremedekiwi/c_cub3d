@@ -27,6 +27,7 @@ SRC_FILES = main.c \
 			parse.c \
 			map.c \
 			map_utils.c \
+			map_utils2.c \
 			minimap.c \
 			raycasting.c
 
@@ -44,6 +45,7 @@ BONUS_FILES = main_bonus.c \
 			parse_bonus.c \
 			map_bonus.c \
 			map_utils_bonus.c \
+			map_utils2_bonus.c \
 			minimap_bonus.c \
 			raycasting_bonus.c \
 			torch_bonus.c \

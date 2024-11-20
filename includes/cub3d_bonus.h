@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/19 19:48:41 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:55:18 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
 void	get_player_position(t_data *data);
 void	get_map(t_data *data, char *str, int fd);
+void	remove_cardinal(t_data *data);
 
 /* tab */
 void	free_tab(char **tab);

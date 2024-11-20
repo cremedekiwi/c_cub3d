@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:27:33 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:26:59 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	remove_cardinal(t_data *data)
 			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
 				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
 			{
+				check_open(data, i, j);
 				data->map.m[i][j] = '0';
 				c++;
 			}
