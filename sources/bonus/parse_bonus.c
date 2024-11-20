@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:14:12 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:19:00 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_last_argument(t_data *data)
 {
 	if (data->color_floor != INT_MIN && data->color_ceiling != INT_MIN
 		&& data->text_no && data->text_so && data->text_ea
-		&& data->text_we)
+		&& data->text_we && data->text_door)
 		return (1);
 	return (0);
 }
