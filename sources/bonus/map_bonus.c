@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 21:05:50 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:31:02 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,25 @@ static void	is_map_open(t_data *data)
 	free_tab(m);
 }
 
+void	check_args(t_data *data)
+{
+	if (!data->text_ea && !data->text_no && !data->text_so
+		&& !data->text_we && !data->text_door
+		&& data->color_floor == INT_MIN
+		&& data->color_ceiling == INT_MIN && !data->map.m)
+		exit_error(data, EMPTY_FILE);
+	if (!data->text_ea || !data->text_no || !data->text_so
+		|| !data->text_we || !data->text_door)
+		exit_error(data, TEXT);
+}
+
 void	verify_arguments(t_data *data)
 {
 	int		i;
 	int		j;
 	bool	whitespace;
 
+	i = 0;
 	whitespace = 1;
 	is_map_open(data);
 	while (data->map.m && i < data->map.rows)
@@ -108,5 +121,6 @@ void	verify_arguments(t_data *data)
 		whitespace = 1;
 		i++;
 	}
+	check_args(data);
 	remove_cardinal(data);
 }

@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 20:55:18 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:16:50 by habernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define MLX_WIN "Error: mlx_new_window() failed\n"
 # define MLX_IMG "Error: mlx_new_image() failed\n"
 # define MLX_TEXT "Error: mlx_xpm_to_image() failed\n"
+# define TEXT "Error: missing texture\n"
 # define MALLOC "Error: malloc() failed\n"
 # define ARGS "Error: you must provide one argument\n"
 # define FD "Error: you could not open file\n"
