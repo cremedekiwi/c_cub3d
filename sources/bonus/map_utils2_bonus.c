@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:26:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 21:06:06 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:36:08 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ static int	found_wall_horizontal(t_data *data, int i, int j, bool start)
 	return (0);
 }
 
-static void	surrounded_by_wall(t_data *data, int i, int j)
+void	check_open(t_data *data, int i, int j)
 {
+	if (i == 0 || j == 0 || i == data->map.rows - 1 || j == data->map.cols - 1)
+		exit_error(data, MAP);
 	if (found_wall_vertical(data, i, j, 1)
 		+ found_wall_vertical(data, i, j, 0)
 		+ found_wall_horizontal(data, i, j, 1)
@@ -63,30 +65,25 @@ static void	surrounded_by_wall(t_data *data, int i, int j)
 	}
 }
 
-void	remove_cardinal(t_data *data)
+int	contains_digits(char *str)
 {
-	int	i;
-	int	j;
-	int	c;
-
-	i = -1;
-	c = 0;
-	while (++i < data->map.rows)
+	while (*str)
 	{
-		j = -1;
-		while (data->map.m[i][++j])
-		{
-			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
-				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
-			{
-				surrounded_by_wall(data, i, j);
-				data->map.m[i][j] = '0';
-				c++;
-			}
-			else if (data->map.m[i][j] == ' ')
-				data->map.m[i][j] = '1';
-		}
+		if (*str >= '0' && *str <= '9')
+			return (1);
+		str++;
 	}
-	if (c != 1)
-		exit_error(data, CARDINAL);
+	return (0);
+}
+
+void	check_args(t_data *data)
+{
+	if (!data->text_ea && !data->text_no && !data->text_so
+		&& !data->text_we
+		&& data->color_floor == INT_MIN
+		&& data->color_ceiling == INT_MIN && !data->map.m)
+		exit_error(data, EMPTY_FILE);
+	if (!data->text_ea || !data->text_no || !data->text_so
+		|| !data->text_we)
+		exit_error(data, TEXT);
 }

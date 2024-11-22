@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: habernar <habernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 19:26:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 19:26:46 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:23:09 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,27 @@ void	check_open(t_data *data, int i, int j)
 	{
 		exit_error(data, MAP);
 	}
+}
+
+int	contains_digits(char *str)
+{
+	while (*str)
+	{
+		if (*str >= '0' && *str <= '9')
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+void	check_args(t_data *data)
+{
+	if (!data->text_ea && !data->text_no && !data->text_so
+		&& !data->text_we
+		&& data->color_floor == INT_MIN
+		&& data->color_ceiling == INT_MIN && !data->map.m)
+		exit_error(data, EMPTY_FILE);
+	if (!data->text_ea || !data->text_no || !data->text_so
+		|| !data->text_we)
+		exit_error(data, TEXT);
 }

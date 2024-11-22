@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 19:27:38 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:23:19 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define MLX_IMG "Error: mlx_new_image() failed\n"
 # define MLX_TEXT "Error: mlx_xpm_to_image() failed\n"
 # define MALLOC "Error: malloc() failed\n"
+# define TEXT "Error: missing texture\n"
 # define ARGS "Error: you must provide one argument\n"
 # define FD "Error: you could not open file\n"
 # define MAP_NOT_LAST "Error: .cub invalid map should be last\n"
@@ -48,7 +49,8 @@
 # define EMPTY_LINE "Error, empty line in map\n"
 # define EMPTY_FILE "Error, empty file\n"
 # define MAP "Error, file contains an open map\n"
-# define MAP_ARGS "Error, file does not contain every arguments\n"
+# define MAP_ARGS "Error, file does not contain every\
+ arguments or contains invalid arguments\n"
 # define MAP_CHAR "Error, file does contain invalid char\n"
 
 typedef struct s_vec2
@@ -173,6 +175,8 @@ int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
 void	get_player_position(t_data *data);
 void	get_map(t_data *data, char *str, int fd);
+int		contains_digits(char *str);
+void	check_args(t_data *data);
 
 /* tab */
 void	free_tab(char **tab);
@@ -183,6 +187,10 @@ void	copy_tab(t_data *data, char **tab);
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);
 void	get_texture(t_data *data, char *str, int fd);
+void	free_texture(void *mlx_ptr, t_img *img);
+int		ft_min(int x, int y);
+void	check_existing_text(int i, t_data *data);
+char	*get_text_path(t_data *data, char *str);
 
 /* exit */
 void	exit_error(t_data *data, char *msg);

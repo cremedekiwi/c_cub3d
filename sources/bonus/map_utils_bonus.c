@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:18:01 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 22:38:27 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:33:09 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ int	ft_isspace(char c)
 
 int	is_empty_line(char *str)
 {
-	while (*str == ' ')
+	while (*str)
+	{
+		if (!ft_isspace(*str))
+			return (0);
 		str++;
-	if (*str == '\n')
-		return (1);
-	return (0);
+	}
+	return (1);
 }
 
 void	get_map_dimension(t_data *data, char **tab)
@@ -64,6 +66,7 @@ void	get_map_dimension(t_data *data, char **tab)
 	int	curr_length;
 
 	i = 0;
+	curr_length = -1;
 	max_length = INT_MIN;
 	while (tab && tab[i])
 	{
@@ -73,5 +76,8 @@ void	get_map_dimension(t_data *data, char **tab)
 		i++;
 	}
 	data->map.rows = i;
-	data->map.cols = max_length - 1;
+	if (tab[i] && curr_length >= 0 && tab[i][curr_length] == '\n')
+		data->map.cols = max_length - 1;
+	else
+		data->map.cols = max_length;
 }

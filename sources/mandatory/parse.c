@@ -6,35 +6,37 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:06:18 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 20:40:06 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:06:21 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_color(t_data *data, char *str, char c, int fd)
+void	get_color(t_data *data, char *str, char x, int fd)
 {
-	int		r;
-	int		g;
-	int		b;
-	char	*head;
+	char	**tab;
+	int		i;
+	int		c[3];
 
-	head = str++;
-	r = ft_atoi(str);
-	str = ft_strchr(str, ',');
-	if (!str)
-		return (free(head), close(fd), exit_error(data, MAP_ARGS));
-	g = ft_atoi(++str);
-	str = ft_strchr(str, ',');
-	if (!str)
-		return (free(head), close(fd), exit_error(data, MAP_ARGS));
-	b = ft_atoi(++str);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (free(head), close(fd), exit_error(data, COLOR));
-	if (c == 'C')
-		data->color_ceiling = (r << 16) | (g << 8) | b;
-	else if (c == 'F')
-		data->color_floor = (r << 16) | (g << 8) | b;
+	tab = ft_split(str + 1, ',');
+	if (!tab)
+		return (free_tab(tab), free(str), exit_error(data, COLOR));
+	i = 0;
+	while (tab[i] && contains_digits(tab[i]))
+		i++;
+	if (i != 3)
+		return (free_tab(tab), free(str), close(fd), exit_error(data, COLOR));
+	c[0] = ft_atoi(tab[0]);
+	c[1] = ft_atoi(tab[1]);
+	c[2] = ft_atoi(tab[2]);
+	if (c[0] < 0 || c[0] > 255 || c[1] < 0
+		|| c[1] > 255 || c[2] < 0 || c[2] > 255)
+		return (free_tab(tab), close(fd), free(str), exit_error(data, COLOR));
+	if (x == 'C')
+		data->color_ceiling = (c[0] << 16) | (c[1] << 8) | c[2];
+	else if (x == 'F')
+		data->color_floor = (c[0] << 16) | (c[1] << 8) | c[2];
+	free_tab(tab);
 }
 
 int	is_last_argument(t_data *data)
@@ -75,7 +77,7 @@ void	get_map(t_data *data, char *str, int fd)
 	char	**tab;
 
 	tab = 0;
-	while (str && !is_empty_line(str))
+	while (str)
 	{
 		tab = tab_append(tab, str);
 		if (!tab)
@@ -95,25 +97,27 @@ void	get_map(t_data *data, char *str, int fd)
 void	parse_map(t_data *data, char *str)
 {
 	int		fd;
-	char	*line;
+	char	*l;
 
 	check_extension(data, str);
 	fd = open(str, O_RDONLY);
 	if (fd <= 0)
 		exit_error(data, FD);
-	line = get_next_line(fd);
-	if (!line)
+	l = get_next_line(fd);
+	if (!l)
 		exit_error(data, EMPTY_FILE);
-	while (line)
+	while (l)
 	{
-		if (is_texture(line))
-			get_texture(data, line, fd);
-		else if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1))
-			get_color(data, line, line[0], fd);
-		else if (is_last_argument(data) && !is_empty_line(line))
-			return (get_map(data, line, fd));
-		free(line);
-		line = get_next_line(fd);
+		if (is_texture(l))
+			get_texture(data, l, fd);
+		else if (l[0] && l[1] && (l[0] == 'F' || l[0] == 'C') && l[1] == ' ')
+			get_color(data, l, l[0], fd);
+		else if (is_last_argument(data) && !is_empty_line(l))
+			return (get_map(data, l, fd));
+		else if (!is_empty_line(l))
+			return (free(l), close(fd), exit_error(data, MAP_ARGS));
+		free(l);
+		l = get_next_line(fd);
 	}
 	close(fd);
 	verify_arguments(data);

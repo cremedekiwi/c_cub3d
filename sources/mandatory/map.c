@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 19:26:59 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:23:03 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ void	verify_arguments(t_data *data)
 		whitespace = 1;
 		i++;
 	}
+	check_args(data);
 	remove_cardinal(data);
 }

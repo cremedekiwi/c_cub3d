@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:11:12 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 21:31:02 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:49:29 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,34 @@ void	get_player_position(t_data *data)
 				data->player.angle = 0;
 		}
 	}
+}
+
+static void	remove_cardinal(t_data *data)
+{
+	int	i;
+	int	j;
+	int	c;
+
+	i = -1;
+	c = 0;
+	while (++i < data->map.rows)
+	{
+		j = -1;
+		while (data->map.m[i][++j])
+		{
+			if (data->map.m[i][j] == 'N' || data->map.m[i][j] == 'S'
+				|| data->map.m[i][j] == 'W' || data->map.m[i][j] == 'E')
+			{
+				check_open(data, i, j);
+				data->map.m[i][j] = '0';
+				c++;
+			}
+			else if (data->map.m[i][j] == ' ')
+				data->map.m[i][j] = '1';
+		}
+	}
+	if (c != 1)
+		exit_error(data, CARDINAL);
 }
 
 static int	flood_fill(t_data *data, char **m, int i, int j)
@@ -82,18 +110,6 @@ static void	is_map_open(t_data *data)
 		}
 	}
 	free_tab(m);
-}
-
-void	check_args(t_data *data)
-{
-	if (!data->text_ea && !data->text_no && !data->text_so
-		&& !data->text_we && !data->text_door
-		&& data->color_floor == INT_MIN
-		&& data->color_ceiling == INT_MIN && !data->map.m)
-		exit_error(data, EMPTY_FILE);
-	if (!data->text_ea || !data->text_no || !data->text_so
-		|| !data->text_we || !data->text_door)
-		exit_error(data, TEXT);
 }
 
 void	verify_arguments(t_data *data)

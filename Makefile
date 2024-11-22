@@ -21,6 +21,7 @@ SRC_FILES = main.c \
 			maths_utils.c \
 			draw.c \
 			texture.c \
+			texture_utils.c \
 			wall.c \
 			tab.c \
 			exit.c \
@@ -38,6 +39,7 @@ BONUS_FILES = main_bonus.c \
 			maths_utils_bonus.c \
 			draw_bonus.c \
 			texture_bonus.c \
+			texture_utils_bonus.c \
 			wall_bonus.c \
 			wall_utils_bonus.c \
 			tab_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:25:27 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/20 21:16:50 by habernar         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:51:45 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@
 # define EMPTY_LINE "Error, empty line in map\n"
 # define EMPTY_FILE "Error, empty file\n"
 # define MAP "Error, file contains an open map\n"
-# define MAP_ARGS "Error, file does not contain every arguments\n"
+# define MAP_ARGS "Error, file does not contain every\
+ arguments or contains invalid arguments\n"
 # define MAP_CHAR "Error, file does contain invalid char\n"
 # define DOOR_LOCATION "Error, invalid door location\n"
 # define TORCH_FRAMES 11
@@ -202,7 +203,8 @@ int		is_map(char *str);
 void	get_map_dimension(t_data *data, char **tab);
 void	get_player_position(t_data *data);
 void	get_map(t_data *data, char *str, int fd);
-void	remove_cardinal(t_data *data);
+int		contains_digits(char *str);
+void	check_args(t_data *data);
 
 /* tab */
 void	free_tab(char **tab);
@@ -213,6 +215,10 @@ void	copy_tab(t_data *data, char **tab);
 int		is_texture(char *str);
 void	create_texture(t_data *data, char *str, int fd, t_img *img);
 void	get_texture(t_data *data, char *str, int fd);
+void	free_texture(void *mlx_ptr, t_img *img);
+int		ft_min(int x, int y);
+void	check_existing_text(int i, t_data *data);
+char	*get_text_path(t_data *data, char *str);
 
 /* exit */
 void	exit_error(t_data *data, char *msg);
@@ -239,6 +245,7 @@ int		invalid_char(char c);
 int		ft_isspace(char c);
 int		is_empty_line(char *str);
 void	get_map_dimension(t_data *data, char **tab);
+void	check_open(t_data *data, int i, int j);
 
 /* map */
 void	get_player_position(t_data *data);

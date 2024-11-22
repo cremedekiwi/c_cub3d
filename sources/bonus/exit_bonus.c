@@ -6,13 +6,13 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:30:22 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/12 23:14:03 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:54:00 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	free_texture(void *mlx_ptr, t_img *img)
+void	free_texture(void *mlx_ptr, t_img *img)
 {
 	if (img)
 	{

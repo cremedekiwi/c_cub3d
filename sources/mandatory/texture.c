@@ -6,7 +6,7 @@
 /*   By: jarumuga <jarumuga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:25:58 by habernar          #+#    #+#             */
-/*   Updated: 2024/11/11 18:28:01 by jarumuga         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:24:41 by jarumuga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,24 @@
 int	is_texture(char *str)
 {
 	static const char	*tok[] = {
-		"NO", "N", "SO", "S", "WE", "W",
-		"EA", "E", 0
+		"NO ", "SO ", "WE ", "EA ", 0
 	};
 	int					i;
-	int					len;
 
 	i = 0;
 	while (*str == ' ' || *str == '\t')
 		str++;
-	while (i < 8)
+	while (i < 4)
 	{
 		if (ft_strlen(str) > ft_strlen(tok[i])
 			&& !ft_strncmp(tok[i], str, ft_strlen(tok[i])))
 		{
-			len = ft_strlen(str);
-			if (!ft_strncmp(".xpm\n", str + len - 5, 5))
-				return (1);
+			while (str && ft_strlen(str) >= 4)
+			{
+				if (!ft_strncmp(".xpm", str, ft_min(4, ft_strlen(str))))
+					return (1);
+				str++;
+			}
 			return (0);
 		}
 		i++;
@@ -58,23 +59,23 @@ int	is_texture(char *str)
 void	assign_texture(t_data *data, char *str, t_img *img)
 {
 	static const char	*tok[] = {
-		"NO", "N", "SO", "S", "WE", "W",
-		"EA", "E", 0
+		"NO ", "SO ", "WE ", "EA ", 0
 	};
 	int					i;
 
 	i = 0;
-	while (i < 8)
+	while (i < 4)
 	{
 		if (!ft_strncmp(tok[i], str, ft_strlen(tok[i])))
 		{
-			if (i < 2)
+			check_existing_text(i, data);
+			if (i == 0)
 				data->text_no = img;
-			else if (i < 4)
+			else if (i == 1)
 				data->text_so = img;
-			else if (i < 6)
+			else if (i == 2)
 				data->text_we = img;
-			else if (i < 8)
+			else if (i == 3)
 				data->text_ea = img;
 			return ;
 		}
@@ -125,7 +126,6 @@ void	create_texture(t_data *data, char *str, int fd, t_img *img)
 void	get_texture(t_data *data, char *str, int fd)
 {
 	t_img	*img;
-	size_t	len;
 	char	*head;
 
 	head = str;
@@ -136,11 +136,8 @@ void	get_texture(t_data *data, char *str, int fd)
 		str++;
 	while (*str == ' ' || *str == '\t')
 		str++;
-	img->path = ft_strdup(str);
+	img->path = get_text_path(data, str);
 	if (!img->path)
 		return (free(head), close(fd), exit_error(data, MALLOC));
-	len = ft_strlen(img->path);
-	if (len > 0)
-		img->path[ft_strlen(img->path) - 1] = 0;
 	create_texture(data, head, fd, img);
 }
