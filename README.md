@@ -2,6 +2,8 @@
 
 A 3D raycasting game engine inspired by Wolfenstein 3D. This project demonstrates fundamental computer graphics concepts including raycasting, texture mapping, and real-time rendering.
 
+<img src="https://raw.githubusercontent.com/cremedekiwi/c_cub3d/refs/heads/main/gif.gif" alt="Animation">
+
 ## Table of Contents
 
 - [Features](#features)
