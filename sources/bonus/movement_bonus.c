@@ -59,7 +59,7 @@ int	cursor_motion(int x, int y, t_data *data)
 {
 	static int	prev_x = W_WIDTH / 2;
 
-	mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
+	// mlx_mouse_hide(data->mlx_ptr, data->mlx_win);
 	if (x < prev_x)
 		data->player.angle -= 0.02;
 	else if (x > prev_x)
